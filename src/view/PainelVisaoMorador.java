@@ -97,6 +97,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jButton8.setBackground(new java.awt.Color(0, 102, 204));
         jButton8.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton8.setText("Sair");
+        jButton8.addActionListener(this::jButton8ActionPerformed);
 
         jButton9.setBackground(new java.awt.Color(0, 102, 204));
         jButton9.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -166,12 +167,10 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Mesalindade");
 
         textemensalidade.setBackground(new java.awt.Color(153, 153, 153));
         textemensalidade.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        textemensalidade.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -203,7 +202,6 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Ultimo Pagamento");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -226,7 +224,6 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Avisos Recentes");
 
         jPanel7.setBackground(new java.awt.Color(204, 204, 204));
@@ -297,12 +294,10 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Meu Apartamento");
 
         textebloco.setBackground(new java.awt.Color(153, 153, 153));
         textebloco.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        textebloco.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -330,7 +325,6 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
 
         textenome.setBackground(new java.awt.Color(153, 153, 153));
         textenome.setFont(new java.awt.Font("Nimbus Roman", 1, 18)); // NOI18N
-        textenome.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -396,6 +390,12 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+TelaLogin login= new TelaLogin();
+login.setVisible(true);// TODO add your handling code here:
+this.dispose();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
