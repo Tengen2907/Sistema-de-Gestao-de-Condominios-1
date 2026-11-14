@@ -45,7 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         }
         //Funcionarios
-        for (int i = 0; i < y.size(); i++) {
+        for (int i = 0; i < z.size(); i++) {
             Funcionario f = (Funcionario) z.get(i);
             if ((f.getId() + "").equals(id) && f.getSenha().equals(senha)) {
                 JOptionPane.showMessageDialog(null, "Login efectuado com sucesso");
