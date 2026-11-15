@@ -29,7 +29,7 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
      */
     public PainelCadastrarApartamentos() {
         initComponents();
-        x=ler_texto();
+        x = ler_texto();
 
     }
 
@@ -44,12 +44,12 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
             Apartamento apartamento1;
             for (int i = 0; i < y.size(); i++) {
                 apartamento1 = (Apartamento) y.get(i);
-                id = apartamento1.getId()+"";
+                id = apartamento1.getId() + "";
                 bloco = apartamento1.getBloco();
                 andar = apartamento1.getAndar() + "";
                 mensalidade = apartamento1.getMesensalidade() + "";
                 estado = apartamento1.isEstado();
-                linha= "--------------------";
+                linha = "--------------------";
                 bw.write(id);
                 bw.newLine();
                 bw.write(bloco);
@@ -106,13 +106,13 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
         try {
             id = Integer.parseInt(txtID.getText());
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, "O ID deve conter apenas numeros!");
-            
+
             return;
         }
-
-        Apartamento apartamento1 = new Apartamento(); 
+        
+        Apartamento apartamento1 = new Apartamento();
         apartamento1.setId(id);
         apartamento1.setBloco(bloco);
         apartamento1.setAndar(andar);
@@ -180,19 +180,17 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
 
     public void actualizar() {
         try {
-            String id = txtID.getText();
-            Apartamento apartamento1;
+            int id = Integer.parseInt(txtID.getText().trim());
             for (int i = 0; i < x.size(); i++) {
-                apartamento1 = (Apartamento) x.get(i);
-                if (Integer.parseInt(id) == apartamento1.getId()) {
+                Apartamento apartamento1 = (Apartamento) x.get(i);
+                if (id == apartamento1.getId()) {
                     apartamento1.setBloco(txtBloco.getText());
                     apartamento1.setAndar(Integer.parseInt(txtAndar.getText()));
                     apartamento1.setMesensalidade(Double.parseDouble(txtMensalidade.getText()));
+                    guadar_texto(x);
+                    JOptionPane.showMessageDialog(null, "Apartamento actualizado com sucesso");
+                    return;
                 }
-                x.add(apartamento1);
-                guadar_texto(x);
-                JOptionPane.showMessageDialog(null, "Apartamento actualizado com sucesso");
-                break;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao actualizar!");
