@@ -32,11 +32,11 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
 
     public void mensalidade() {
 
-        Vector listarMensalidade = PainelCadastrarApartamentos.ler_texto();
+        Vector listar = PainelCadastrarApartamentos.ler_texto();
         Apartamento apartamento1;
 
-        for (int i = 0; i < listarMensalidade.size(); i++) {
-            apartamento1 = (Apartamento) listarMensalidade.get(i);
+        for (int i = 0; i < listar.size(); i++) {
+            apartamento1 = (Apartamento) listar.get(i);
 
             if (textebloco.getText().trim().equals(apartamento1.getId() + "")) { 
                 textebloco.setText(apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar());
@@ -115,6 +115,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(0, 102, 204));
         jButton11.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton11.setText("Meu Pagamentos");
+        jButton11.addActionListener(this::jButton11ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

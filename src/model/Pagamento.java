@@ -17,8 +17,6 @@ public class Pagamento   implements Serializable {
     private double valor;
     private String metodoPagamento;
     private String dataPagamento;
-    private String estado;
-
     public Pagamento(String id, String moradorId, String apartametoId, String salario, String referencia, String mesReferencia, int anoReferencia, double valor, String metodoPagamento, String dataPagamento, String estado) {
         this.id = id;
         this.moradorId = moradorId;
@@ -30,7 +28,6 @@ public class Pagamento   implements Serializable {
         this.valor = valor;
         this.metodoPagamento = metodoPagamento;
         this.dataPagamento = dataPagamento;
-        this.estado = estado;
     }
     
     public Pagamento(){
@@ -116,14 +113,5 @@ public class Pagamento   implements Serializable {
     public void setDataPagamento(String dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-    
     
 }
