@@ -204,7 +204,7 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
 
         lblID.setText("  ");
 
-        jLabel8.setText("Data de Cadastro");
+        jLabel8.setText("Data de Nascimento");
 
         lblDataDeNascimento.setText(" ");
 
@@ -238,7 +238,7 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblDataDeNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblDataDeNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
