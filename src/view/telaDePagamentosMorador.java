@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Apartamento;
 import model.Cadastro;
 import model.Pagamento;
@@ -34,35 +36,24 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         initComponents();
         exibir_dados();
     }
+    double valorMensalidade = 0;
 
     public void guardar_pagamentos(Vector y) throws IOException {
-        try {
-            File file = new File(FICHEIRO);
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            String pagamentoID, metodosDePagamento, moradorID, valor, apartamentoID, linha;
-            boolean estado;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
 
-            Pagamento pagamento;
             for (int i = 0; i < y.size(); i++) {
-                pagamento = (Pagamento) y.get(i);
-                pagamentoID = pagamento.getReferencia();
-                metodosDePagamento = pagamento.getMetodoPagamento();
-                moradorID = pagamento.getMoradorId();
-                valor = pagamento.getValor() + "";
-                apartamentoID = pagamento.getApartametoId();
-
-                linha = "--------------------------------";
+                Pagamento p = (Pagamento) y.get(i);
+                bw.write(p.getReferencia());
                 bw.newLine();
-
-                bw.write(pagamentoID);
-                bw.write(metodosDePagamento);
+                bw.write(p.getMetodoPagamento());
                 bw.newLine();
-                bw.write(moradorID);
+                bw.write(p.getMoradorId());
                 bw.newLine();
-                bw.write(valor);
+                bw.write(p.getValor() + "");
                 bw.newLine();
-                bw.write(apartamentoID);
+                bw.write(p.getApartametoId());
+                bw.newLine();
+                bw.write("-----------------------------------");
                 bw.newLine();
 
             }
@@ -108,16 +99,17 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
         try {
             Vector listarMensalidade = PainelCadastrarApartamentos.ler_texto();
-            Apartamento apartamento1;
+            Apartamento a;
 
             for (int i = 0; i < listarMensalidade.size(); i++) {
-                apartamento1 = (Apartamento) listarMensalidade.get(i);
+                a = (Apartamento) listarMensalidade.get(i);
 
-                if (idApartamento.equals(apartamento1.getId() + "")) {
-                    lblValor.setText(apartamento1.getMesensalidade() + " MZN");
-                    lblApartamento.setText(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
-                    break;
+                if (idApartamento.equals(a.getId()+"")) {
+                    valorMensalidade = a.getMesensalidade();
+                    lblValor.setText(valorMensalidade + " MZN");
+                    lblApartamento.setText(a.getId() + "-Bloco-" + a.getBloco() + "-Andar-" + a.getAndar());
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,12 +118,47 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     }
 
     public void pagar() {
+        try{
+        String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
+        if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
+            JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
+        }
 
+        Pagamento p = new Pagamento();
+        Vector pagamentos = ler_pagamentos();
+
+        p.setReferencia("Pag" + System.currentTimeMillis());
+        p.setMetodoPagamento(metodo);
+        p.setMoradorId(morador.getId() + "");
+        p.setValor(valorMensalidade);
+        p.setApartametoId(idApartamento);
+        pagamentos.add(p);
+        
+            guardar_pagamentos(pagamentos);
+            JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
+            cbxMetodosDePagamento.setSelectedIndex(0);
+            historico_pagamentos();
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
+            e.printStackTrace();
+        }
+        
     }
 
     public void historico_pagamentos() {
-
-    }
+        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        
+        Vector l= ler_pagamentos();
+        for(int i=0; i< l.size(); i++){
+            Pagamento p =(Pagamento) l.get(i);
+            if(idApartamento.equals(p.getApartametoId())){
+                model.addRow(new Object[]{
+                p.getReferencia(), p.getValor() +" MZN " ,p.getMetodoPagamento(), " Pago"});
+            }
+            }
+        }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,23 +171,24 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHistoricoDePagamentos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbxMetodosDePagamento = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblApartamento = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHistoricoDePagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -169,14 +197,14 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHistoricoDePagamentos);
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         jLabel1.setText("Historico de Pagamentos");
@@ -185,7 +213,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
         jLabel2.setText("Metodos de Pagamento");
 
-        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "M-pesa", "Emola", "BCI", "BIM", " " }));
+        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM", " " }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMetodosDePagamentoActionPerformed(evt);
@@ -196,19 +224,19 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
         lblValor.setText(" ");
 
-        jButton1.setBackground(java.awt.Color.blue);
-        jButton1.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 255, 51));
-        jButton1.setText("Pagar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Apartamento");
 
         lblApartamento.setText(" ");
+
+        jButton3.setBackground(java.awt.Color.blue);
+        jButton3.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(51, 255, 51));
+        jButton3.setText("Pagar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -217,7 +245,6 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -228,7 +255,8 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                             .addComponent(cbxMetodosDePagamento, 0, 123, Short.MAX_VALUE)
                             .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 104, Short.MAX_VALUE)))
+                        .addGap(0, 104, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -246,9 +274,9 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblApartamento))
-                .addGap(38, 38, 38)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(java.awt.Color.blue);
@@ -261,6 +289,15 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(java.awt.Color.blue);
+        jButton1.setForeground(java.awt.Color.green);
+        jButton1.setText("Ver Historico");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -269,7 +306,11 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -285,11 +326,14 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -316,17 +360,22 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PainelVisaoMorador visao= (morador != null)
+        
+        PainelVisaoMorador visao = (morador != null)
                 ? new PainelVisaoMorador(morador)
-                :new PainelVisaoMorador();
+                : new PainelVisaoMorador();
         visao.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+pagar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+historico_pagamentos();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,6 +406,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxMetodosDePagamento;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -364,8 +414,8 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblApartamento;
     private javax.swing.JLabel lblValor;
+    private javax.swing.JTable tblHistoricoDePagamentos;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,7 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaPerfilDoMorador.class.getName());
 
+    private Cadastro morador;
     /**
      * Creates new form telaPerfilDoMorador
      */
@@ -350,9 +351,13 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-PainelVisaoMorador morador= new PainelVisaoMorador();
-morador.setVisible(true);// TODO add your handling code here:
-this.dispose();
+// TODO add your handling code here:
+
+    PainelVisaoMorador visao = (morador != null)
+                ? new PainelVisaoMorador(morador)
+                : new PainelVisaoMorador();
+        visao.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
