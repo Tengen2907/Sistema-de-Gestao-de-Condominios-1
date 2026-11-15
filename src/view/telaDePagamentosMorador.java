@@ -4,6 +4,17 @@
  */
 package view;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Vector;
+import model.Apartamento;
+import model.Cadastro;
+import model.Pagamento;
+
 /**
  *
  * @author tengen
@@ -11,14 +22,96 @@ package view;
 public class telaDePagamentosMorador extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaDePagamentosMorador.class.getName());
-
+    private static final String FICHEIRO = "Mensalidades.TxT";
+    Vector x = new Vector();
     /**
      * Creates new form telaDePagamentosMorador
      */
     public telaDePagamentosMorador() {
         initComponents();
     }
+    
+    public void guardar_pagamentos(Vector y) throws IOException{
+        try {
+            File file = new File(FICHEIRO);
+            FileWriter fw= new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String pagamentoID,metodosDePagamento,moradorID,valor,apartamentoID, linha;
+            boolean estado;
+            
+            Pagamento pagamento;
+            for(int i=0; i< y.size();i++){
+                pagamento= (Pagamento) y.get(i);
+                pagamentoID= pagamento.getReferencia();
+                metodosDePagamento= pagamento.getMetodoPagamento();
+                moradorID= pagamento.getMoradorId();
+                valor= pagamento.getValor()+"";
+                apartamentoID= pagamento.getApartametoId();
+                
+                linha = "--------------------------------";bw.newLine();
+                
+                bw.write(pagamentoID);
+                bw.write(metodosDePagamento);bw.newLine();
+                bw.write(moradorID);bw.newLine();
+                bw.write(valor);bw.newLine();
+                bw.write(apartamentoID);bw.newLine();
+                
+            }
+            bw.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static Vector ler_pagamentos(){
+        Vector y= new Vector();
+        File file= new File(FICHEIRO);
+        if(!file.exists()){
+            return y;
+        }
+        
+        try (BufferedReader br= new BufferedReader(new FileReader(file))){
+            String pagamentoID;
+            while((pagamentoID = br.readLine()) != null){
+                Pagamento pagamento = new Pagamento();
+                pagamento.setReferencia(pagamentoID);
+                pagamento.setMetodoPagamento(br.readLine());
+                pagamento.setMoradorId(br.readLine());
+                pagamento.setValor(Double.parseDouble(br.readLine()));
+                pagamento.setApartametoId(br.readLine());
+                br.readLine();
+                y.add(pagamento);
+            }
+        } catch (Exception e) {
+        }
+        return y;
+    }
 
+    public void pagar(){
+        try {
+            String metodoDePagamento= cbxMetodosDePagamento.getSelectedItem()+"";
+            
+            Pagamento pagamento= new Pagamento();
+            Vector listarMensalidade = PainelCadastrarApartamentos.ler_texto();
+        Apartamento apartamento1;
+
+        for (int i = 0; i < listarMensalidade.size(); i++) {
+            apartamento1 = (Apartamento) listarMensalidade.get(i);
+            
+                lblValor.setText(apartamento1.getMesensalidade() + " MZN");
+                lblApartamento.setText(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
+        }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void historico_pagamentos(){
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +127,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxMetodosDePagamento = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -50,11 +143,11 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mes", "Valor", "Estado"
+                "Mes", "Valor", "Metodo de pagamento", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -68,20 +161,28 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        jLabel2.setText("Formas de Pagamento");
+        jLabel2.setText("Metodos de Pagamento");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "M-pesa", "Emola", "BCI", "BIM", " " }));
+        cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbxMetodosDePagamentoActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Valor");
+        jLabel3.setText("Mensalidade");
 
         lblValor.setText(" ");
 
+        jButton1.setBackground(java.awt.Color.blue);
+        jButton1.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 255, 51));
         jButton1.setText("Pagar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Apartamento");
 
@@ -94,7 +195,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -102,10 +203,11 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 123, Short.MAX_VALUE)
+                            .addComponent(cbxMetodosDePagamento, 0, 123, Short.MAX_VALUE)
                             .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 104, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +215,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxMetodosDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -123,8 +225,8 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(lblApartamento))
                 .addGap(38, 38, 38)
-                .addComponent(jButton1)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -172,9 +274,13 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbxMetodosDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMetodosDePagamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+pagar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,8 +308,8 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxMetodosDePagamento;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
