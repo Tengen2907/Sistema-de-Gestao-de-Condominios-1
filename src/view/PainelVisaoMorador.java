@@ -40,7 +40,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
 
             if (textebloco.getText().trim().equals(apartamento1.getId() + "")) { 
                 textebloco.setText(apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar());
-                textemensalidade.setText(apartamento1.getMesensalidade() + "");
+                textemensalidade.setText(apartamento1.getMesensalidade() + " MZN");
             }
         }
     }
