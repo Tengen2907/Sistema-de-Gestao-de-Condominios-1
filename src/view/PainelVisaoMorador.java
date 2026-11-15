@@ -40,7 +40,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
 
             if (textebloco.getText().trim().equals(apartamento1.getId() + "")) { 
                 textebloco.setText(apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar());
-                textemensalidade.setText(apartamento1.getMesensalidade() + "");
+                textemensalidade.setText(apartamento1.getMesensalidade() + " MZN");
             }
         }
     }
@@ -94,6 +94,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(0, 102, 204));
         jButton6.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton6.setText("Meu Perfil");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
 
         jButton8.setBackground(new java.awt.Color(0, 102, 204));
         jButton8.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -112,6 +113,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(0, 102, 204));
         jButton11.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton11.setText("Meu Pagamentos");
+        jButton11.addActionListener(this::jButton11ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -397,6 +399,16 @@ TelaLogin login= new TelaLogin();
 login.setVisible(true);// TODO add your handling code here:
 this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+PainelPagamentos pagamentos= new PainelPagamentos();
+pagamentos.setVisible(true);// TODO add your handling code here:
+this.dispose();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
