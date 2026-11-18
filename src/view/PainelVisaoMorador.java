@@ -164,10 +164,11 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(10, 25, 34));
 
-        jPanel3.setBackground(new java.awt.Color(10, 25, 34));
+        jPanel3.setBackground(java.awt.Color.blue);
         jPanel3.setForeground(java.awt.Color.white);
 
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Mensalidade");
 
         textemensalidade.setBackground(new java.awt.Color(10, 25, 34));
@@ -201,12 +202,13 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
                     .addContainerGap(65, Short.MAX_VALUE)))
         );
 
-        jPanel4.setBackground(new java.awt.Color(10, 25, 34));
+        jPanel4.setBackground(java.awt.Color.blue);
 
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Total de Pagamentos");
 
-        lblTotalDePagamentos.setBackground(new java.awt.Color(10, 25, 34));
+        lblTotalDePagamentos.setBackground(java.awt.Color.white);
         lblTotalDePagamentos.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         lblTotalDePagamentos.setForeground(java.awt.Color.white);
 
@@ -231,13 +233,14 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(10, 25, 34));
+        jPanel6.setBackground(java.awt.Color.blue);
         jPanel6.setForeground(java.awt.Color.white);
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Meu Apartamento");
 
-        textebloco.setBackground(new java.awt.Color(10, 25, 34));
+        textebloco.setBackground(java.awt.Color.white);
         textebloco.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         textebloco.setForeground(java.awt.Color.white);
 
@@ -265,7 +268,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user-key (1).png"))); // NOI18N
         jLabel3.setText("Morador");
 
-        textenome.setBackground(new java.awt.Color(153, 153, 153));
+        textenome.setBackground(java.awt.Color.white);
         textenome.setFont(new java.awt.Font("Nimbus Roman", 1, 18)); // NOI18N
         textenome.setForeground(java.awt.Color.white);
 

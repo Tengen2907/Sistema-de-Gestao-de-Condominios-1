@@ -265,9 +265,9 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
                         .addGap(111, 111, 111)
                         .addComponent(jLabel2))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(lblNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addGap(55, 55, 55)
+                        .addComponent(lblNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +473,7 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(155, 155, 155)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 161, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblMorador, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
