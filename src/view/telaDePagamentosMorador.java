@@ -137,7 +137,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             guardar_pagamentos(pagamentos);
             JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
             cbxMetodosDePagamento.setSelectedIndex(0);
-            historico_pagamentos();
+//            historico_pagamentos();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
@@ -148,7 +148,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
     public void historico_pagamentos() {
         DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
-        
+        model.setRowCount(0);
         Vector l= ler_pagamentos();
         for(int i=0; i< l.size(); i++){
             Pagamento p =(Pagamento) l.get(i);
@@ -159,6 +159,10 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             }
         }
     
+    public void limpar(){
+        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        model.setRowCount(0);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
