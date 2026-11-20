@@ -7,6 +7,7 @@ package view;
 import java.util.Vector;
 import model.Apartamento;
 import model.Cadastro;
+import model.Pagamento;
 
 /**
  *
@@ -34,7 +35,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
     }
 
     public void mensalidade() {
-
+        try{
         Vector listar = PainelCadastrarApartamentos.ler_texto();
         Apartamento apartamento1;
 
@@ -46,12 +47,21 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
                 textemensalidade.setText(apartamento1.getMesensalidade() + " MZN");
             }
         }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     public void totalDePagamentos(){
         Vector pagamentos= telaDePagamentosMorador.ler_pagamentos();
-        
-        int totalDePagamentos= pagamentos.size();
+        int totalDePagamentos=0;
+        String idMorador= morador.getId()+"";
+        for(int i=0; i<pagamentos.size(); i++){
+            Pagamento p= (Pagamento) pagamentos.get(i);
+            if(idMorador.equals(p.getMoradorId().trim())){
+                totalDePagamentos++;
+            }
+        }
         lblTotalDePagamentos.setText(String.valueOf(totalDePagamentos));
     }
 
