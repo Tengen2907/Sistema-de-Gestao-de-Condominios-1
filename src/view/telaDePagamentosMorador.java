@@ -150,9 +150,10 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         model.setRowCount(0);
         Vector l= ler_pagamentos();
+        String idMorador= morador.getId()+"";
         for(int i=0; i< l.size(); i++){
             Pagamento p =(Pagamento) l.get(i);
-            if(idApartamento.equals(p.getApartametoId())){
+            if(idMorador.equals(String.valueOf(p.getMoradorId()).trim())){
                 model.addRow(new Object[]{
                 p.getReferencia(), p.getValor() +" MZN " ,p.getMetodoPagamento(), " Pago"});
             }
