@@ -14,41 +14,46 @@ import model.Cadastro;
  * @author tengen
  */
 public class telaPerfilDoMorador extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaPerfilDoMorador.class.getName());
 
     private Cadastro morador;
+
     /**
      * Creates new form telaPerfilDoMorador
      */
     public telaPerfilDoMorador() {
         initComponents();
-        perfil();
     }
 
-    public void perfil(){
-        Vector perfil= PainelCadastro.ler_texto();
-        
-        Cadastro cadastro;
-        Apartamento apartamento1;
-        
-        
-        for(int i= 0; i< perfil.size();i++){
-            cadastro = (Cadastro) perfil.get(i);
-            lblMorador.setText(cadastro.getNomeCompleto());
-            lblID.setText(cadastro.getId()+"");
-            lblNomeCompleto.setText(cadastro.getNomeCompleto());
-            lblApartamento.setText(cadastro.getApartamento());
-            lblTelefone.setText(cadastro.getTelefone());
-            lblEmail.setText(cadastro.getEmail());
-            lblEstadoCivil.setText(cadastro.getEstadoCivil());
-            lblNUIT.setText(cadastro.getNUIT());
-            lblNacionalidade.setText(cadastro.getNacionalidade());
-            lblDataDeNascimento.setText(cadastro.getDataDeNascimento());
-        }
-        
+    public telaPerfilDoMorador(Cadastro morador){
+        initComponents();
+        this.morador=morador;
+        perfil();
     }
     
+    public void perfil() {
+        Vector perfil = PainelCadastro.ler_texto();
+
+        Cadastro cadastro;
+
+        for (int i = 0; i < perfil.size(); i++) {
+            cadastro = (Cadastro) perfil.get(i);
+            if (cadastro != null && cadastro.getId() == this.morador.getId()) {
+                lblMorador.setText(cadastro.getNomeCompleto());
+                lblID.setText(cadastro.getId() + "");
+                lblNomeCompleto.setText(cadastro.getNomeCompleto());
+                lblApartamento.setText(cadastro.getApartamento());
+                lblTelefone.setText(cadastro.getTelefone());
+                lblEmail.setText(cadastro.getEmail());
+                lblEstadoCivil.setText(cadastro.getEstadoCivil());
+                lblNUIT.setText(cadastro.getNUIT());
+                lblNacionalidade.setText(cadastro.getNacionalidade());
+                lblDataDeNascimento.setText(cadastro.getDataDeNascimento());
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,6 +146,11 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
         jButton10.setBackground(new java.awt.Color(0, 102, 204));
         jButton10.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton10.setText("Minha Manutencao");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(new java.awt.Color(0, 102, 204));
         jButton11.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -544,24 +554,33 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        TelaLogin login= new TelaLogin();
+        TelaLogin login = new TelaLogin();
         login.setVisible(true);// TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        PainelVisaoMorador visao = (morador != null)
+                ? new PainelVisaoMorador(morador)
+                : new PainelVisaoMorador();
+        visao.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 // TODO add your handling code here:
 
-    PainelVisaoMorador visao = (morador != null)
+        PainelVisaoMorador visao = (morador != null)
                 ? new PainelVisaoMorador(morador)
                 : new PainelVisaoMorador();
         visao.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
