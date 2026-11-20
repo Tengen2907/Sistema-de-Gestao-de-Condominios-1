@@ -149,7 +149,7 @@ public class PainelCadastro extends javax.swing.JFrame {
         String apartamento = ((Apartamento) listaApartamentos.get(lista)).getId()+ "";
         String dataDeCadastro = cbxDataDeCadastro.getSelectedItem() + "";
         String estadoCivil = cbxEstadoCivil.getSelectedItem() + "";
-        String nuit = txtNUIT.getText();
+        String nuit = txtNuit.getText();
         int contactoDeEmergencia = Integer.parseInt(txtContactoDeEmergencia.getText());
         int id;
         try {
@@ -214,7 +214,7 @@ public class PainelCadastro extends javax.swing.JFrame {
         txtTelefone.setText("");
         txtTelefoneAlternativo.setText("");
         cbxNacinal.setSelectedIndex(0);
-        txtNUIT.setText("");
+        txtNuit.setText("");
         txtContactoDeEmergencia.setText("");
 
     }
@@ -277,10 +277,10 @@ public class PainelCadastro extends javax.swing.JFrame {
         cbxNacinal = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        txtNUIT = new javax.swing.JLabel();
-        txtNomeCompleto1 = new javax.swing.JTextField();
-        txtNUIT1 = new javax.swing.JLabel();
         txtContactoDeEmergencia = new javax.swing.JTextField();
+        txtNuit = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -430,17 +430,16 @@ public class PainelCadastro extends javax.swing.JFrame {
         jButton5.setText("Voltar");
         jButton5.addActionListener(this::jButton5ActionPerformed);
 
-        txtNUIT.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        txtNUIT.setText("Nuit");
-
-        txtNomeCompleto1.setBackground(new java.awt.Color(204, 204, 204));
-        txtNomeCompleto1.addActionListener(this::txtNomeCompleto1ActionPerformed);
-
-        txtNUIT1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        txtNUIT1.setText("Contacto de emergencia");
-
         txtContactoDeEmergencia.setBackground(new java.awt.Color(204, 204, 204));
         txtContactoDeEmergencia.addActionListener(this::txtContactoDeEmergenciaActionPerformed);
+
+        txtNuit.addActionListener(this::txtNuitActionPerformed);
+
+        jLabel9.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel9.setText("Nuit");
+
+        jLabel12.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel12.setText("Numero Alternativo");
 
         javax.swing.GroupLayout cbxNacionalidadeLayout = new javax.swing.GroupLayout(cbxNacionalidade);
         cbxNacionalidade.setLayout(cbxNacionalidadeLayout);
@@ -491,20 +490,20 @@ public class PainelCadastro extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtNUIT)
-                                                    .addComponent(txtNUIT1))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(txtContactoDeEmergencia)
-                                                    .addComponent(txtNomeCompleto1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
-                                            .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
                                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(26, 26, 26)
                                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jButton5)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cbxNacionalidadeLayout.createSequentialGroup()
+                                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel9)
+                                                    .addComponent(jLabel12))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtNuit, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtContactoDeEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                 .addGap(83, 83, 83))))
                     .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
                         .addContainerGap()
@@ -550,53 +549,53 @@ public class PainelCadastro extends javax.swing.JFrame {
                 .addGap(7, 7, Short.MAX_VALUE)
                 .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                        .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(17, 17, 17)
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(cbxDataDeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                                            .addGap(17, 17, 17)
-                                            .addComponent(jLabel4)
-                                            .addGap(18, 18, 18)
-                                            .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel5)
-                                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(29, 29, 29))
-                                        .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtBI, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(78, 78, 78)))
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6)
-                                        .addComponent(cbxApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                                            .addGap(25, 25, 25)
-                                            .addComponent(jLabel7)
-                                            .addGap(18, 18, 18))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cbxNacionalidadeLayout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cbxDataDeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                    .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel8)
-                                        .addComponent(cbxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNomeCompleto1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(17, 17, 17)
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(cbxDataDeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
+                                        .addGap(17, 17, 17)
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(29, 29, 29))
+                                    .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtBI, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(78, 78, 78)))
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(cbxApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cbxNacionalidadeLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbxDataDeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(cbxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, Short.MAX_VALUE))
                     .addGroup(cbxNacionalidadeLayout.createSequentialGroup()
-                        .addComponent(txtNUIT)
-                        .addGap(29, 29, 29)
                         .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNUIT1)
-                            .addComponent(txtContactoDeEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNuit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtContactoDeEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -689,13 +688,13 @@ public class PainelCadastro extends javax.swing.JFrame {
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtNomeCompleto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCompleto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCompleto1ActionPerformed
-
     private void txtContactoDeEmergenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactoDeEmergenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContactoDeEmergenciaActionPerformed
+
+    private void txtNuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -738,6 +737,7 @@ public class PainelCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -750,6 +750,7 @@ public class PainelCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -758,10 +759,8 @@ public class PainelCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField txtContactoDeEmergencia;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtID;
-    private javax.swing.JLabel txtNUIT;
-    private javax.swing.JLabel txtNUIT1;
     private javax.swing.JTextField txtNomeCompleto;
-    private javax.swing.JTextField txtNomeCompleto1;
+    private javax.swing.JTextField txtNuit;
     private javax.swing.JTextField txtSenhaDeAcesso;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTelefoneAlternativo;
