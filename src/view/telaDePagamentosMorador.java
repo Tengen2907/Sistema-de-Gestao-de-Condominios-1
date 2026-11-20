@@ -409,7 +409,7 @@ historico_pagamentos();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+limpar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

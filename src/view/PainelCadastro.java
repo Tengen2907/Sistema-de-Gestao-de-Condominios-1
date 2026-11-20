@@ -418,7 +418,7 @@ public class PainelCadastro extends javax.swing.JFrame {
         txtConfirmarSenha.setBackground(new java.awt.Color(204, 204, 204));
 
         cbxNacinal.setBackground(new java.awt.Color(0, 102, 204));
-        cbxNacinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nacionalidade", " " }));
+        cbxNacinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nacionalidade", "Moçambicano/a", "Sul-africano/a", "Zimbabueano/a", "Malawiano/a", "Tanzaniano/a", "Portugueso/a", "Angolano/a", "Brasileiro/a" }));
 
         jButton4.setBackground(new java.awt.Color(0, 102, 204));
         jButton4.setText("Limpar");
