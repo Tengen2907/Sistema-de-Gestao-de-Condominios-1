@@ -344,7 +344,7 @@ this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-telaPerfilDoMorador perfil = new telaPerfilDoMorador();
+telaPerfilDoMorador perfil = new telaPerfilDoMorador(this.morador);
 perfil.setVisible(true);// TODO add your handling code here:
 this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
