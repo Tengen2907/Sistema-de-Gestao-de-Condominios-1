@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.IdentityHashMap;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,12 +45,13 @@ public class telaDeManutencaoMoradores extends javax.swing.JFrame {
     //Aqui guarda os pedidos
     public void guardar_manutencoes(Vector y) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
-            Cadastro morador = new Cadastro();
             for (int i = 0; i < y.size(); i++) {
                 Manutencao manutencao = (Manutencao) y.get(i);
                 bw.write(manutencao.getId());
                 bw.newLine();
                 bw.write(manutencao.getMoradorId());
+                bw.newLine();
+                bw.write(manutencao.getApartametoId());
                 bw.newLine();
                 bw.write(manutencao.getCategoria());
                 bw.newLine();
@@ -106,7 +106,7 @@ public class telaDeManutencaoMoradores extends javax.swing.JFrame {
             m.setMoradorId(morador.getId() + "");
             m.setApartametoId(morador.getApartamento());
             m.setCategoria(categoria);
-            m.setDescriacao(desc);
+            m.setDescriacao(desc.replace("\n", " "));
             pedidos.add(m);
 
             guardar_manutencoes(pedidos);
@@ -141,6 +141,7 @@ public class telaDeManutencaoMoradores extends javax.swing.JFrame {
     public void limpar() {
         DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         modelo.setRowCount(0);
+        txtDescricao.setText("");
 
     }
 
@@ -373,8 +374,11 @@ public class telaDeManutencaoMoradores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-
+        PainelVisaoMorador tela = (morador != null)
+        ? new PainelVisaoMorador(morador)
+        :new PainelVisaoMorador();
+        tela.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
