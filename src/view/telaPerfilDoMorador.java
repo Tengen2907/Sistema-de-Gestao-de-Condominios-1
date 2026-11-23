@@ -609,9 +609,9 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        telaDePagamentosMorador editar = (morador != null)
-            ? new telaDePagamentosMorador(morador)
-            : new telaDePagamentosMorador();
+        telaEditarInformacoesDoMorador editar = (morador != null)
+            ? new telaEditarInformacoesDoMorador(morador)
+            : new telaEditarInformacoesDoMorador();
     editar.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
