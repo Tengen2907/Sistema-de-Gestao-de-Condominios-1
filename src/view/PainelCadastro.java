@@ -324,26 +324,33 @@ public class PainelCadastro extends javax.swing.JFrame {
         jLabel8.setText("Estado: ");
 
         txtBI.setBackground(new java.awt.Color(204, 204, 204));
+        txtBI.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtBI.addActionListener(this::txtBIActionPerformed);
 
         txtNomeCompleto.setBackground(new java.awt.Color(204, 204, 204));
+        txtNomeCompleto.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtNomeCompleto.addActionListener(this::txtNomeCompletoActionPerformed);
 
         txtEmail.setBackground(new java.awt.Color(204, 204, 204));
+        txtEmail.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtEmail.addActionListener(this::txtEmailActionPerformed);
 
         cbxDataDeNascimento.setBackground(new java.awt.Color(0, 102, 204));
+        cbxDataDeNascimento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cbxDataDeNascimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028" }));
         cbxDataDeNascimento.addActionListener(this::cbxDataDeNascimentoActionPerformed);
 
         cbxEstadoCivil.setBackground(new java.awt.Color(0, 102, 204));
+        cbxEstadoCivil.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cbxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado Civil", "Solteiro/a", "Casado/a", "Viuvo/a" }));
 
         cbxApartamento.setBackground(new java.awt.Color(0, 102, 204));
+        cbxApartamento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cbxApartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "------" }));
         cbxApartamento.addActionListener(this::cbxApartamentoActionPerformed);
 
         cbxDataDeCadastro.setBackground(new java.awt.Color(0, 102, 204));
+        cbxDataDeCadastro.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cbxDataDeCadastro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028" }));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
@@ -407,17 +414,23 @@ public class PainelCadastro extends javax.swing.JFrame {
         jLabel18.setText("Nacionalidade:");
 
         txtTelefone.setBackground(new java.awt.Color(204, 204, 204));
+        txtTelefone.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         txtTelefoneAlternativo.setBackground(new java.awt.Color(204, 204, 204));
+        txtTelefoneAlternativo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         txtID.setBackground(new java.awt.Color(204, 204, 204));
+        txtID.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         txtSenhaDeAcesso.setBackground(new java.awt.Color(204, 204, 204));
+        txtSenhaDeAcesso.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtSenhaDeAcesso.addActionListener(this::txtSenhaDeAcessoActionPerformed);
 
         txtConfirmarSenha.setBackground(new java.awt.Color(204, 204, 204));
+        txtConfirmarSenha.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         cbxNacinal.setBackground(new java.awt.Color(0, 102, 204));
+        cbxNacinal.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cbxNacinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nacionalidade", " " }));
 
         jButton4.setBackground(new java.awt.Color(0, 102, 204));
@@ -434,12 +447,14 @@ public class PainelCadastro extends javax.swing.JFrame {
         txtNUIT.setText("Nuit");
 
         txtNomeCompleto1.setBackground(new java.awt.Color(204, 204, 204));
+        txtNomeCompleto1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtNomeCompleto1.addActionListener(this::txtNomeCompleto1ActionPerformed);
 
         txtNUIT1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         txtNUIT1.setText("Contacto de emergencia");
 
         txtContactoDeEmergencia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContactoDeEmergencia.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         txtContactoDeEmergencia.addActionListener(this::txtContactoDeEmergenciaActionPerformed);
 
         javax.swing.GroupLayout cbxNacionalidadeLayout = new javax.swing.GroupLayout(cbxNacionalidade);
@@ -624,7 +639,7 @@ public class PainelCadastro extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxNacinal, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)

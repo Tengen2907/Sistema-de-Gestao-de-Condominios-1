@@ -4,6 +4,11 @@
  */
 package view;
 
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.Apartamento;
+import model.Cadastro;
+
 /**
  *
  * @author yurankali
@@ -14,7 +19,66 @@ public class PainelApartamentos extends javax.swing.JFrame {
 
     public PainelApartamentos() {
         initComponents();
+        adicionar();
+    }
 
+    public void adicionar() {
+        cbxapartamento.removeAllItems();
+        Vector listarApartamentos = PainelCadastrarApartamentos.ler_texto();
+        Apartamento apartamento1;
+
+        for (int i = 0; i < listarApartamentos.size(); i++) {
+            apartamento1 = (Apartamento) listarApartamentos.get(i);
+            cbxapartamento.addItem(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
+        }
+
+    }
+
+    public void precherTabelaApartamento() {
+
+        try {
+            remover_linha();
+
+            DefaultTableModel model = (DefaultTableModel) TabelaApartamento.getModel();
+            String categoria = cbxapartamento.getSelectedItem() + "";
+            Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
+            Vector listaCadastro = PainelCadastro.ler_texto();
+
+            for (int i = 0; i < listaApartamentos.size(); i++) {
+                Apartamento apartamento1 = (Apartamento) listaApartamentos.get(i);
+
+                String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
+
+                // vai verificar se tem moradores/cadastrados associados
+                if (categoria.equals(textoApartamento)) {
+                    for (int j = 0; j < listaCadastro.size(); j++) {
+                        Cadastro cadastro = (Cadastro) listaCadastro.get(j);
+
+                        if ((apartamento1.getId() + "").equals(cadastro.getApartamento())) {
+                            Object[] linha = new Object[4];
+
+                            linha[0] = apartamento1.getId();
+                            linha[1] = cadastro.getNomeCompleto();
+                            linha[2] = cadastro.getTelefone();
+                            linha[3] = apartamento1.getMesensalidade();
+
+                            model.addRow(linha);
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void remover_linha() {
+        DefaultTableModel model = (DefaultTableModel) TabelaApartamento.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
     }
 
     /**
@@ -28,14 +92,12 @@ public class PainelApartamentos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        cbxApartamento3 = new javax.swing.JComboBox<>();
+        cbxapartamento = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaApartamento = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,41 +108,32 @@ public class PainelApartamentos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Apartamentos");
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 204));
-        jButton1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jButton1.setText("Novo Apartamento");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-
-        jButton2.setBackground(new java.awt.Color(0, 102, 204));
-        jButton2.setText("Editar");
-
         jButton3.setBackground(new java.awt.Color(0, 102, 204));
         jButton3.setText("Ver Apartamentos");
         jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setBackground(new java.awt.Color(0, 102, 204));
-        jButton4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jButton4.setText("Voltar");
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
-        jButton5.setBackground(new java.awt.Color(0, 102, 204));
-        jButton5.setText("Desativar");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
-
-        cbxApartamento3.setBackground(new java.awt.Color(0, 102, 204));
-        cbxApartamento3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Apartamento--", "Bloco-1", "Bloco-2", "Bloco-3", "Bloco-4", "Bloco-5", "Bloco-6", "Bloco-7", "Bloco-8", "Bloco-9", "Bloco-10", "Bloco-11", "Bloco-12", "Bloco-13", "Bloco-14", "Bloco-15", "Bloco-16", "Bloco-17", "Bloco-18", "Bloco-19", "Bloco-20", " " }));
-        cbxApartamento3.addActionListener(this::cbxApartamento3ActionPerformed);
+        cbxapartamento.setBackground(new java.awt.Color(0, 102, 204));
+        cbxapartamento.addActionListener(this::cbxapartamentoActionPerformed);
 
         TabelaApartamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Apartamento"
+                "ID", "Nome", "Telefone", "Mesalidade"
             }
         ));
         jScrollPane2.setViewportView(TabelaApartamento);
+
+        jButton5.setBackground(new java.awt.Color(0, 102, 204));
+        jButton5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jButton5.setText("Novo Apartamento");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,25 +142,17 @@ public class PainelApartamentos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(cbxapartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(cbxApartamento3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,22 +160,16 @@ public class PainelApartamentos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(518, 518, 518)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbxApartamento3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(cbxapartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(69, 69, 69))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,22 +192,19 @@ public class PainelApartamentos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void cbxapartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxapartamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void cbxApartamento3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxApartamento3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxApartamento3ActionPerformed
+    }//GEN-LAST:event_cbxapartamentoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        precherTabelaApartamento();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-new PainelCadastrarApartamentos().setVisible(true);        // TODO add your handling code here:
-this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        new PainelCadastrarApartamentos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,9 +233,7 @@ this.dispose();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaApartamento;
-    private javax.swing.JComboBox<String> cbxApartamento3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> cbxapartamento;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -120,14 +120,15 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     public void pagar() {
         try{
         String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
-        if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
+        if (metodo.trim().isEmpty() || metodo.startsWith("Metodo de pagamento")) {
             JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
+            return;
         }
 
         Pagamento p = new Pagamento();
         Vector pagamentos = ler_pagamentos();
 
-        p.setReferencia("Pag" + System.currentTimeMillis());
+        p.setReferencia("Pag" + System.currentTimeMillis()); // gera codigo 
         p.setMetodoPagamento(metodo);
         p.setMoradorId(morador.getId() + "");
         p.setValor(valorMensalidade);
@@ -218,25 +219,22 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(10, 25, 34));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Metodos de Pagamento");
 
         cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
         cbxMetodosDePagamento.setForeground(new java.awt.Color(255, 255, 255));
-        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
+        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Metodo de pagamento", "M-pesa", "Emola", "BCI", "BIM" }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMetodosDePagamentoActionPerformed(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("Mensalidade");
 
         lblValor.setForeground(new java.awt.Color(255, 255, 255));
         lblValor.setText(" ");
 
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Apartamento");
 
         lblApartamento.setForeground(new java.awt.Color(255, 255, 255));
