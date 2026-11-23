@@ -214,11 +214,11 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
-        PainelVisaoMorador visao = (morador != null)
-        ? new PainelVisaoMorador(morador)
-        : new PainelVisaoMorador();
-        visao.setVisible(true);
-        this.dispose();
+//        PainelVisaoMorador visao = (morador != null)
+//        ? new PainelVisaoMorador(morador)
+//        : new PainelVisaoMorador();
+//        visao.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
