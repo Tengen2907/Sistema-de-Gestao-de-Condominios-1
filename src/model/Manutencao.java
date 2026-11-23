@@ -12,7 +12,7 @@ private static final long seriaVescionuID =1l;
     private String id;
     private String moradorId;
     private String apartametoId;
-    private String tipo;
+    private String categoria;
     private String descriacao;
     private String dataPedido;
     private String estado;
@@ -28,7 +28,7 @@ private static final long seriaVescionuID =1l;
         this.id = id;
         this.moradorId = moradorId;
         this.apartametoId = apartametoId;
-        this.tipo = tipo;
+        this.categoria = tipo;
         this.descriacao = descriacao;
         this.dataPedido = dataPedido;
         this.estado = estado;
@@ -63,12 +63,12 @@ private static final long seriaVescionuID =1l;
         this.apartametoId = apartametoId;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setCategoria(String tipo) {
+        this.categoria = tipo;
     }
 
     public String getDescriacao() {
@@ -110,6 +110,5 @@ private static final long seriaVescionuID =1l;
     public void setDataConclusao(String dataConclusao) {
         this.dataConclusao = dataConclusao;
     }
-    
     
 }

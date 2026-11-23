@@ -1,28 +1,39 @@
+
 package model;
 
 import java.io.Serializable;
 
-public class Despesa implements Serializable {
-    private static final long seriaVescionuID = 1l;
-    
+public class Despesa implements Serializable{
+private static final long seriaVescionuID =1l;
+    private String id;
     private String descricao;
     private String categoria;
     private double valor;
-    private String responsavel;
-    private String benificiario;
+    private String data;
+    private String responsavelId;
+    private String observacao;
+    
+    public Despesa(){
+        
+    }
 
-
-    public Despesa(String descricao, String categoria, double valor, String responsavel, String benificiario) {
+    public Despesa(String id, String descricao, String categoria, double valor, String data, String responsavelId, String observacao) {
+        this.id = id;
         this.descricao = descricao;
         this.categoria = categoria;
         this.valor = valor;
-        this.responsavel = responsavel;
-        this.benificiario = benificiario;
+        this.data = data;
+        this.responsavelId = responsavelId;
+        this.observacao = observacao;
     }
 
-    public Despesa() {
-}
-  
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -48,21 +59,28 @@ public class Despesa implements Serializable {
         this.valor = valor;
     }
 
-    public String getResponsavel() {
-        return responsavel;
+    public String getData() {
+        return data;
     }
 
-    public void setResponsavel(String responsavel) {
-        this.responsavel = responsavel;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public String getBenificiario() {
-        return benificiario;
+    public String getResponsavelId() {
+        return responsavelId;
     }
 
-    public void setBenificiario(String benificiario) {
-        this.benificiario = benificiario;
+    public void setResponsavelId(String responsavelId) {
+        this.responsavelId = responsavelId;
     }
 
-   
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
 }

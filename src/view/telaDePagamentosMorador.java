@@ -120,15 +120,14 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     public void pagar() {
         try{
         String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
-        if (metodo.trim().isEmpty() || metodo.startsWith("Metodo de pagamento")) {
+        if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
             JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
-            return;
         }
 
         Pagamento p = new Pagamento();
         Vector pagamentos = ler_pagamentos();
 
-        p.setReferencia("Pag" + System.currentTimeMillis()); // gera codigo 
+        p.setReferencia("Pag" + System.currentTimeMillis());
         p.setMetodoPagamento(metodo);
         p.setMoradorId(morador.getId() + "");
         p.setValor(valorMensalidade);
@@ -138,7 +137,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             guardar_pagamentos(pagamentos);
             JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
             cbxMetodosDePagamento.setSelectedIndex(0);
-            historico_pagamentos();
+//            historico_pagamentos();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
@@ -149,17 +148,22 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
     public void historico_pagamentos() {
         DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
-        
+        model.setRowCount(0);
         Vector l= ler_pagamentos();
+        String idMorador= morador.getId()+"";
         for(int i=0; i< l.size(); i++){
             Pagamento p =(Pagamento) l.get(i);
-            if(idApartamento.equals(p.getApartametoId())){
+            if(idMorador.equals(String.valueOf(p.getMoradorId()).trim())){
                 model.addRow(new Object[]{
                 p.getReferencia(), p.getValor() +" MZN " ,p.getMetodoPagamento(), " Pago"});
             }
             }
         }
     
+    public void limpar(){
+        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        model.setRowCount(0);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -219,22 +223,25 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(10, 25, 34));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Metodos de Pagamento");
 
         cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
         cbxMetodosDePagamento.setForeground(new java.awt.Color(255, 255, 255));
-        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Metodo de pagamento", "M-pesa", "Emola", "BCI", "BIM" }));
+        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMetodosDePagamentoActionPerformed(evt);
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("Mensalidade");
 
         lblValor.setForeground(new java.awt.Color(255, 255, 255));
         lblValor.setText(" ");
 
+        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Apartamento");
 
         lblApartamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,7 +275,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                             .addComponent(cbxMetodosDePagamento, 0, 123, Short.MAX_VALUE)
                             .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 104, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -325,24 +332,24 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 21, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(351, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(666, 666, 666))
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
-                                .addGap(241, 241, 241)
+                                .addGap(28, 28, 28)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -355,10 +362,10 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50))
         );
 
@@ -374,8 +381,8 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -403,7 +410,7 @@ historico_pagamentos();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+limpar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

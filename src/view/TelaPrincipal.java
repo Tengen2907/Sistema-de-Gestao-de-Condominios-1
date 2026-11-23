@@ -42,7 +42,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txttotalDeApartamentos.setText(String.valueOf(totalDeApartamentos));
     }
 //    public void contar_pagamentos() {
-    //Vector contadorDePagamentos = PainelPagamentos.ler_texto();
+//        Vector contadorDePagamentos = PainelPagamentos.ler_texto();
 //        
 //        int totalDeApartamentos = contadorDePagamentos.size();
 //        txttotalDePagamentos.setText(String.valueOf(totalDeApartamentos));
