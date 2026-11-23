@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Apartamento;
 import model.Despesa;
 
 /**
@@ -32,6 +33,7 @@ public class PainelDespesas extends javax.swing.JFrame {
     public PainelDespesas() {
         initComponents();
         x = ler_texto();
+        adicionar();
     }
 
     public void guardar_texto(Vector y) throws IOException {
@@ -93,12 +95,19 @@ public class PainelDespesas extends javax.swing.JFrame {
         return y;
     }
 
-    public void RegistarDespesa() {
+    public void RegistarDespesas() {
 
         String categoria = cbxCategoriaDespesas.getSelectedItem() + "";
         String descricao = texDescricao.getText();
         String responsavel = cbxResponsavel.getSelectedItem() + "";
         String beneficiarios = cbxbeneficiarios.getSelectedItem() + "";
+        int lista= cbxCategoriaDespesas.getSelectedIndex();
+        Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
+        String apartamento = ((Apartamento) listaApartamentos.get(lista)).getId()+ "";
+        if (lista < 0 || lista >= listaApartamentos.size()) {
+            JOptionPane.showMessageDialog(null, "Escolha um apartamento!");
+            return;
+        }
         double valor ;
 
         try {
@@ -116,6 +125,7 @@ public class PainelDespesas extends javax.swing.JFrame {
         despesa.setDescricao(descricao);
         despesa.setResponsavel(responsavel);
         despesa.setValor(valor);
+        despesa.setApartamento(apartamento);
         x.add(despesa);
         try {
             guardar_texto(x);
@@ -138,6 +148,17 @@ public class PainelDespesas extends javax.swing.JFrame {
     }
 
     public void editar() {
+
+    }
+        public void adicionar() {
+        cbxCunsultar.removeAllItems();
+        Vector listarApartamentos = PainelCadastrarApartamentos.ler_texto();
+        Apartamento apartamento1;
+
+        for (int i = 0; i < listarApartamentos.size(); i++) {
+            apartamento1 = (Apartamento) listarApartamentos.get(i);
+            cbxCunsultar.addItem(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
+        }
 
     }
 
@@ -166,9 +187,12 @@ public class PainelDespesas extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbxbeneficiarios = new javax.swing.JComboBox<>();
+        cbxCunsultar = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -215,11 +239,17 @@ public class PainelDespesas extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Beneficiarios");
+        jLabel7.setText("Beneficiarios:");
 
         cbxbeneficiarios.setBackground(new java.awt.Color(0, 102, 204));
         cbxbeneficiarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIPAG", "EDM", "Tmcel", "Vodacom", "Movitel", "Empresa de Segurança", "Empresa de Limpeza", "Empresa de Manutenção", "Empresa de Elevadores", "Empresa de Recolha de Lixo", "Jardineiro", "Canalizador", "Eletricista", "Técnico de Gerador", "Técnico de CCTV", "Empresa de Desinfestação", "Pintor", "Serralheiro", "Carpinteiro", "Fornecedor de Material de Construção", "Fornecedor de Material Elétrico", "Distribuidor de Água", "Empresa de Extintores", "Contabilista", "Advogado", "Prestador de Serviços", "Administração do Condomínio", "Outro" }));
         cbxbeneficiarios.addActionListener(this::cbxbeneficiariosActionPerformed);
+
+        cbxCunsultar.setBackground(new java.awt.Color(0, 102, 204));
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Aparatamento:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -235,14 +265,19 @@ public class PainelDespesas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(texDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbxCategoriaDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxCategoriaDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(texDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel7)
-                        .addGap(26, 26, 26)
-                        .addComponent(cbxbeneficiarios, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxCunsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxbeneficiarios, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(250, 250, 250)
@@ -275,8 +310,11 @@ public class PainelDespesas extends javax.swing.JFrame {
                             .addComponent(cbxCategoriaDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(cbxbeneficiarios, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addComponent(texDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(texDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxCunsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,6 +335,11 @@ public class PainelDespesas extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 102, 204));
         jButton2.setText("Sair");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        jButton4.setBackground(new java.awt.Color(0, 102, 204));
+        jButton4.setText("Ver cunsulta");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -307,6 +350,8 @@ public class PainelDespesas extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(426, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -314,7 +359,8 @@ public class PainelDespesas extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
@@ -360,7 +406,7 @@ public class PainelDespesas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,12 +441,22 @@ public class PainelDespesas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxbeneficiariosActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        RegistarDespesa();        // TODO add your handling code here:
+        RegistarDespesas();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         limpar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+new TelaPrincipal().setVisible(true);
+this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+new  telaCunsultaDespesas().setVisible(true);
+this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,15 +485,18 @@ public class PainelDespesas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbxCategoriaDespesas;
+    private javax.swing.JComboBox<String> cbxCunsultar;
     private javax.swing.JComboBox<String> cbxResponsavel;
     private javax.swing.JComboBox<String> cbxbeneficiarios;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

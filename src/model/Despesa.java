@@ -10,14 +10,16 @@ public class Despesa implements Serializable {
     private double valor;
     private String responsavel;
     private String benificiario;
+    private String apartamento;
 
 
-    public Despesa(String descricao, String categoria, double valor, String responsavel, String benificiario) {
+    public Despesa(String descricao, String categoria, double valor, String responsavel, String benificiario, String apartamento) {
         this.descricao = descricao;
         this.categoria = categoria;
         this.valor = valor;
         this.responsavel = responsavel;
         this.benificiario = benificiario;
+        this.apartamento = apartamento;
     }
 
     public Despesa() {
@@ -62,6 +64,14 @@ public class Despesa implements Serializable {
 
     public void setBenificiario(String benificiario) {
         this.benificiario = benificiario;
+    }
+
+    public String getApartamento() {
+        return apartamento;
+    }
+
+    public void setApartamento(String apartamento) {
+        this.apartamento = apartamento;
     }
 
    

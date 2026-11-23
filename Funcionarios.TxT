@@ -8,3 +8,13 @@ admin111
 -Supervisor de Condomínio
 120000.0
 --------------------
+SR Yuran
+100076hue
+2
+841147588
+123
+874722645
+2000
+-Gestor de Condomínios / Gestor de Conta
+2000.0
+--------------------

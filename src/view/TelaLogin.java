@@ -99,10 +99,13 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(18, 53, 87));
         jLabel5.setText("Senha:");
 
+        textid.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         textid.addActionListener(this::textidActionPerformed);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/condominio.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
+
+        textsenha.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         jButton2.setBackground(new java.awt.Color(18, 53, 87));
         jButton2.setText("Fechar");
