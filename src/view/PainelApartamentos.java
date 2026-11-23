@@ -49,7 +49,6 @@ public class PainelApartamentos extends javax.swing.JFrame {
 
                 String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
 
-                // vai verificar se tem moradores/cadastrados associados
                 if (categoria.equals(textoApartamento)) {
                     for (int j = 0; j < listaCadastro.size(); j++) {
                         Cadastro cadastro = (Cadastro) listaCadastro.get(j);
