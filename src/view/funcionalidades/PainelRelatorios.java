@@ -4,7 +4,10 @@
  */
 package view.funcionalidades;
 
+import java.util.Vector;
+import model.Pagamento;
 import view.funcionarios_admin.TelaPrincipal;
+import view.morador.telaDePagamentosMorador;
 
 /**
  *
@@ -19,6 +22,26 @@ public class PainelRelatorios extends javax.swing.JFrame {
      */
     public PainelRelatorios() {
         initComponents();
+        receitas();
+    }
+   
+    public  void receitas(){
+        try{
+        Vector listarPagamentos= telaDePagamentosMorador.ler_pagamentos();
+        Pagamento pagamento;
+        double total=0;
+        
+        for (int i = 0; i < listarPagamentos.size(); i++) {
+            pagamento = (Pagamento) listarPagamentos.get(i);
+            total += Double.parseDouble(String.valueOf(pagamento.getValor()));
+        }
+        txtTotalReceitas.setText(total + "");
+
+
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -34,24 +57,24 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbxMesInicio = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbxMesFim = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        txtTotalReceitas = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        txtTotalSaidas = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        txtTotalDespesas = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -72,17 +95,18 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("De:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMesInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Mês--", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Ate:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMesFim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Mês--", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jButton1.setBackground(new java.awt.Color(0, 102, 204));
         jButton1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButton1.setText("Gerar Relatorio");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -100,9 +124,9 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("MZN");
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("1089.1803");
+        txtTotalReceitas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txtTotalReceitas.setForeground(new java.awt.Color(0, 0, 0));
+        txtTotalReceitas.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -117,7 +141,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(361, 361, 361)
-                    .addComponent(jLabel11)
+                    .addComponent(txtTotalReceitas)
                     .addContainerGap(361, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -131,7 +155,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(jLabel11)
+                    .addComponent(txtTotalReceitas)
                     .addContainerGap(10, Short.MAX_VALUE)))
         );
 
@@ -144,9 +168,9 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("MZN");
 
-        jLabel13.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("12324.2433");
+        txtTotalSaidas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txtTotalSaidas.setForeground(new java.awt.Color(0, 0, 0));
+        txtTotalSaidas.setText("0");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -155,14 +179,14 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(234, 234, 234))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(361, 361, 361)
-                    .addComponent(jLabel13)
-                    .addContainerGap(361, Short.MAX_VALUE)))
+                    .addComponent(txtTotalSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(373, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +199,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(jLabel13)
+                    .addComponent(txtTotalSaidas)
                     .addContainerGap(10, Short.MAX_VALUE)))
         );
 
@@ -188,9 +212,9 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("MZN");
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("832.42");
+        txtTotalDespesas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txtTotalDespesas.setForeground(new java.awt.Color(0, 0, 0));
+        txtTotalDespesas.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -205,8 +229,8 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(361, 361, 361)
-                    .addComponent(jLabel12)
-                    .addContainerGap(361, Short.MAX_VALUE)))
+                    .addComponent(txtTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(370, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +243,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(jLabel12)
+                    .addComponent(txtTotalDespesas)
                     .addContainerGap(10, Short.MAX_VALUE)))
         );
 
@@ -274,11 +298,11 @@ public class PainelRelatorios extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbxMesFim, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
@@ -303,9 +327,9 @@ public class PainelRelatorios extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxMesFim, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
@@ -335,6 +359,10 @@ public class PainelRelatorios extends javax.swing.JFrame {
         this.dispose();         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -361,18 +389,15 @@ public class PainelRelatorios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxMesFim;
+    private javax.swing.JComboBox<String> cbxMesInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -386,5 +411,8 @@ public class PainelRelatorios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel txtTotalDespesas;
+    private javax.swing.JLabel txtTotalReceitas;
+    private javax.swing.JLabel txtTotalSaidas;
     // End of variables declaration//GEN-END:variables
 }

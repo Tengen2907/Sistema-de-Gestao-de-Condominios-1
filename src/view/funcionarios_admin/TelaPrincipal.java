@@ -102,6 +102,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txttotalDePagamentos = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtfuncionarios = new javax.swing.JLabel();
@@ -246,7 +247,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(35, 35, 35))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(79, 79, 79)
                 .addComponent(txttotalDeApartamentos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -255,9 +256,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(txttotalDeApartamentos)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(102, 204, 0));
@@ -270,6 +271,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txttotalDePagamentos.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         txttotalDePagamentos.setText("0");
 
+        jLabel9.setBackground(java.awt.Color.white);
+        jLabel9.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("MZN");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -281,8 +287,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel6))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
-                        .addComponent(txttotalDePagamentos)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addComponent(txttotalDePagamentos)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel9)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,8 +298,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(txttotalDePagamentos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txttotalDePagamentos)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel9)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 102, 102));
@@ -642,6 +654,7 @@ this.dispose();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

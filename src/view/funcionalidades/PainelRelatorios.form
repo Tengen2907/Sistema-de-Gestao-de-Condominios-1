@@ -57,11 +57,11 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" min="-2" pref="204" max="-2" attributes="0"/>
+                                  <Component id="cbxMesInicio" min="-2" pref="204" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jComboBox3" min="-2" pref="218" max="-2" attributes="0"/>
+                                  <Component id="cbxMesFim" min="-2" pref="218" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
@@ -94,9 +94,9 @@
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="cbxMesInicio" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox3" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="cbxMesFim" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -149,14 +149,23 @@
             <Property name="text" type="java.lang.String" value="De:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
+        <Component class="javax.swing.JComboBox" name="cbxMesInicio">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="13">
+                <StringItem index="0" value="--M&#xea;s--"/>
+                <StringItem index="1" value="Janeiro"/>
+                <StringItem index="2" value="Fevereiro"/>
+                <StringItem index="3" value="Mar&#xe7;o"/>
+                <StringItem index="4" value="Abril"/>
+                <StringItem index="5" value="Maio"/>
+                <StringItem index="6" value="Junho"/>
+                <StringItem index="7" value="Julho"/>
+                <StringItem index="8" value="Agosto"/>
+                <StringItem index="9" value="Setembro"/>
+                <StringItem index="10" value="Outubro"/>
+                <StringItem index="11" value="Novembro"/>
+                <StringItem index="12" value="Dezembro"/>
               </StringArray>
             </Property>
           </Properties>
@@ -175,14 +184,23 @@
             <Property name="text" type="java.lang.String" value="Ate:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox3">
+        <Component class="javax.swing.JComboBox" name="cbxMesFim">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="13">
+                <StringItem index="0" value="--M&#xea;s--"/>
+                <StringItem index="1" value="Janeiro"/>
+                <StringItem index="2" value="Fevereiro"/>
+                <StringItem index="3" value="Mar&#xe7;o"/>
+                <StringItem index="4" value="Abril"/>
+                <StringItem index="5" value="Maio"/>
+                <StringItem index="6" value="Junho"/>
+                <StringItem index="7" value="Julho"/>
+                <StringItem index="8" value="Agosto"/>
+                <StringItem index="9" value="Setembro"/>
+                <StringItem index="10" value="Outubro"/>
+                <StringItem index="11" value="Novembro"/>
+                <StringItem index="12" value="Dezembro"/>
               </StringArray>
             </Property>
           </Properties>
@@ -200,6 +218,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gerar Relatorio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
@@ -274,7 +295,7 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalReceitas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="361" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -293,7 +314,7 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalReceitas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -320,7 +341,7 @@
                     <Property name="text" type="java.lang.String" value="MZN"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
+                <Component class="javax.swing.JLabel" name="txtTotalReceitas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="14" style="0"/>
@@ -328,7 +349,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="1089.1803"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -346,15 +367,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="451" max="32767" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
-                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="361" max="32767" attributes="0"/>
+                              <Component id="txtTotalSaidas" min="-2" pref="64" max="-2" attributes="0"/>
+                              <EmptySpace pref="373" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -372,7 +393,7 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalSaidas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -399,7 +420,7 @@
                     <Property name="text" type="java.lang.String" value="MZN"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel13">
+                <Component class="javax.swing.JLabel" name="txtTotalSaidas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="14" style="0"/>
@@ -407,7 +428,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="12324.2433"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -432,8 +453,8 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="361" max="32767" attributes="0"/>
+                              <Component id="txtTotalDespesas" min="-2" pref="67" max="-2" attributes="0"/>
+                              <EmptySpace pref="370" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -451,7 +472,7 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalDespesas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -478,7 +499,7 @@
                     <Property name="text" type="java.lang.String" value="MZN"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel12">
+                <Component class="javax.swing.JLabel" name="txtTotalDespesas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="14" style="0"/>
@@ -486,7 +507,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="832.42"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
               </SubComponents>

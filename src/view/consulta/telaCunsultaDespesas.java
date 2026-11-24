@@ -98,7 +98,6 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaDespesa = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -123,10 +122,6 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         ));
         TabelaDespesa.setToolTipText("TabelaDespesas");
         jScrollPane2.setViewportView(TabelaDespesa);
-
-        jButton4.setBackground(new java.awt.Color(0, 102, 204));
-        jButton4.setText("Consultar");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -217,11 +212,6 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(320, 320, 320)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(790, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
@@ -240,11 +230,6 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(307, 307, 307)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(308, Short.MAX_VALUE)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(27, 27, 27)
@@ -267,10 +252,6 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-           // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 precherTabela();        // TODO add your handling code here:
@@ -312,7 +293,6 @@ this.dispose();
     private javax.swing.JTable TabelaDespesa;
     private javax.swing.JComboBox<String> cbxCunsultar;
     private javax.swing.JComboBox<String> cbxListarDespesas1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
