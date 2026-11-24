@@ -4,6 +4,10 @@
  */
 package view;
 
+import view.funcionarios_admin.TelaPrincipal;
+import view.morador.PainelVisaoMorador;
+import view.cadastro.PainelCadastroFuncionario;
+import view.cadastro.PainelCadastro;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import model.Cadastro;
@@ -78,7 +82,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(10, 25, 34));
 
         jButton1.setBackground(new java.awt.Color(18, 53, 87));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icons8-login-48.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-login-48.png"))); // NOI18N
         jButton1.setText("Entrar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
@@ -102,7 +106,7 @@ public class TelaLogin extends javax.swing.JFrame {
         textid.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         textid.addActionListener(this::textidActionPerformed);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/condominio.jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/condominio.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
 
         textsenha.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -139,7 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36))))
         );

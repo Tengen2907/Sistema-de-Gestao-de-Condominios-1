@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.cadastro;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import model.Apartamento;
+import view.funcionarios_admin.PainelApartamentos;
 
 /**
  *
@@ -226,23 +227,19 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(java.awt.Color.white);
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Apartamentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 14), java.awt.Color.black)); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Apartamentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 14))); // NOI18N
         jPanel2.setForeground(java.awt.Color.white);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.black);
         jLabel1.setText("ID");
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("Bloco");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("Andar");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Mensalidade");
 
         txtID.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -269,7 +266,7 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
         jButton7.setText("Eliminar");
         jButton7.addActionListener(this::jButton7ActionPerformed);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/condominio.jpg"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/condominio.jpg"))); // NOI18N
         jLabel11.setText("jLabel11");
 
         jButton4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -422,9 +419,6 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField txtAndar;
     private javax.swing.JTextField txtBloco;
     private javax.swing.JTextField txtID;

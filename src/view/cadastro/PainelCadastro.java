@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.cadastro;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import model.Apartamento;
 import model.Cadastro;
+import view.funcionarios_admin.TelaPrincipal;
 
 /**
  *

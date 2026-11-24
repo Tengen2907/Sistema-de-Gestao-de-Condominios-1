@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.morador;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,156 +13,136 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Apartamento;
 import model.Cadastro;
-import model.Pagamento;
+import model.Manutencao;
 
 /**
  *
  * @author tengen
  */
-public class telaDePagamentosMorador extends javax.swing.JFrame {
+public class telaDeManutencaoMoradores extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaDePagamentosMorador.class.getName());
-    private static final String FICHEIRO = "Mensalidades.TxT";
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaDeManutencaoMoradores.class.getName());
+    private static final String FICHEIRO = "Manutencoes.TxT";
     Vector x = new Vector();
     private Cadastro morador;
-    private String idApartamento = "";
+    private String idManutencao = "";
 
     /**
-     * Creates new form telaDePagamentosMorador
+     * Creates new form telaDeManutencaoMoradores
      */
-    public telaDePagamentosMorador() {
+    public telaDeManutencaoMoradores() {
         initComponents();
-        exibir_dados();
     }
-    double valorMensalidade = 0;
 
-    public void guardar_pagamentos(Vector y) throws IOException {
+    public telaDeManutencaoMoradores(Cadastro morador) {
+        this.morador = morador;
+        this.idManutencao = morador.getApartamento().trim();
+        initComponents();
+       // exibir_dados();
+    }
+
+    //Aqui guarda os pedidos
+    public void guardar_manutencoes(Vector y) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
-
             for (int i = 0; i < y.size(); i++) {
-                Pagamento p = (Pagamento) y.get(i);
-                bw.write(p.getReferencia());
+                Manutencao manutencao = (Manutencao) y.get(i);
+                bw.write(manutencao.getId());
                 bw.newLine();
-                bw.write(p.getMetodoPagamento());
+                bw.write(manutencao.getMoradorId());
                 bw.newLine();
-                bw.write(p.getMoradorId());
+                bw.write(manutencao.getApartametoId());
                 bw.newLine();
-                bw.write(p.getValor() + "");
+                bw.write(manutencao.getCategoria());
                 bw.newLine();
-                bw.write(p.getApartametoId());
+                bw.write(manutencao.getDescriacao());
                 bw.newLine();
-                bw.write("-----------------------------------");
+                bw.write("----------------------------------------");
                 bw.newLine();
-
             }
-            bw.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Vector ler_pagamentos() {
+    //Aqui vai ler os pedodos de manutencao
+    public static Vector ler_manutencoes() {
         Vector y = new Vector();
         File file = new File(FICHEIRO);
         if (!file.exists()) {
             return y;
         }
-
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String pagamentoID;
-            while ((pagamentoID = br.readLine()) != null) {
-                Pagamento pagamento = new Pagamento();
-                pagamento.setReferencia(pagamentoID);
-                pagamento.setMetodoPagamento(br.readLine());
-                pagamento.setMoradorId(br.readLine());
-                pagamento.setValor(Double.parseDouble(br.readLine()));
-                pagamento.setApartametoId(br.readLine());
+            String id;
+            while ((id = br.readLine()) != null) {
+                Manutencao manutencao = new Manutencao();
+                manutencao.setId(id);
+                manutencao.setMoradorId(br.readLine());
+                manutencao.setApartametoId(br.readLine());
+                manutencao.setCategoria(br.readLine());
+                manutencao.setDescriacao(br.readLine());
                 br.readLine();
-                y.add(pagamento);
+                y.add(manutencao);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return y;
     }
 
-    public telaDePagamentosMorador(Cadastro morador) {
-        this.morador = morador;
-        this.idApartamento = morador.getApartamento().trim();
-        initComponents();
-        exibir_dados();
-    }
-
-    public void exibir_dados() {
-
+    public void enviar_pedido() {
         try {
-            Vector listarMensalidade = PainelCadastrarApartamentos.ler_texto();
-            Apartamento a;
+            String categoria = cbxCategoria.getSelectedItem() + "";
+            String desc = txtDescricao.getText().trim();
 
-            for (int i = 0; i < listarMensalidade.size(); i++) {
-                a = (Apartamento) listarMensalidade.get(i);
-
-                if (idApartamento.equals(a.getId()+"")) {
-                    valorMensalidade = a.getMesensalidade();
-                    lblValor.setText(valorMensalidade + " MZN");
-                    lblApartamento.setText(a.getId() + "-Bloco-" + a.getBloco() + "-Andar-" + a.getAndar());
-                }
-
+            if (categoria.equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Selecione a cateboria");
+                return;
             }
+
+            Vector pedidos = ler_manutencoes();
+            Manutencao m = new Manutencao();
+            m.setId("Man" + System.currentTimeMillis());
+            m.setMoradorId(morador.getId() + "");
+            m.setApartametoId(morador.getApartamento());
+            m.setCategoria(categoria);
+            m.setDescriacao(desc.replace("\n", " "));
+            pedidos.add(m);
+
+            guardar_manutencoes(pedidos);
+            JOptionPane.showMessageDialog(null, "Pedido enviado com sucesso");
+            cbxCategoria.setSelectedIndex(0);
+            txtDescricao.setText("");
+            historico_manutencao();
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "falha o enviar o pedido");
             e.printStackTrace();
         }
-
     }
 
-    public void pagar() {
-        try{
-        String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
-        if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
-            JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
+    public void historico_manutencao() {
+        DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        modelo.setRowCount(0);
+        if (morador == null) {
+            return;
         }
 
-        Pagamento p = new Pagamento();
-        Vector pagamentos = ler_pagamentos();
-
-        p.setReferencia("Pag" + System.currentTimeMillis());
-        p.setMetodoPagamento(metodo);
-        p.setMoradorId(morador.getId() + "");
-        p.setValor(valorMensalidade);
-        p.setApartametoId(idApartamento);
-        pagamentos.add(p);
-        
-            guardar_pagamentos(pagamentos);
-            JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
-            cbxMetodosDePagamento.setSelectedIndex(0);
-//            historico_pagamentos();
-        
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
-            e.printStackTrace();
+        Vector l = ler_manutencoes();
+        String idMorador = morador.getId() + "";
+        for (int i = 0; i < l.size(); i++) {
+            Manutencao m = (Manutencao) l.get(i);
+            if (idMorador.equals(String.valueOf(m.getMoradorId()).trim())) {
+                modelo.addRow(new Object[]{m.getId(), m.getCategoria(), "Pendente"});
+            }
         }
-        
     }
 
-    public void historico_pagamentos() {
-        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
-        model.setRowCount(0);
-        Vector l= ler_pagamentos();
-        String idMorador= morador.getId()+"";
-        for(int i=0; i< l.size(); i++){
-            Pagamento p =(Pagamento) l.get(i);
-            if(idMorador.equals(String.valueOf(p.getMoradorId()).trim())){
-                model.addRow(new Object[]{
-                p.getReferencia(), p.getValor() +" MZN " ,p.getMetodoPagamento(), " Pago"});
-            }
-            }
-        }
-    
-    public void limpar(){
-        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
-        model.setRowCount(0);
+    public void limpar() {
+        DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        modelo.setRowCount(0);
+        txtDescricao.setText("");
+
     }
 
     /**
@@ -174,18 +154,20 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHistoricoDePagamentos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        cbxMetodosDePagamento = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lblApartamento = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbxCategoria = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -193,7 +175,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(10, 25, 34));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Minha manutencao", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
         tblHistoricoDePagamentos.setBackground(new java.awt.Color(10, 25, 34));
         tblHistoricoDePagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -203,11 +185,11 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Valor", "Metodo de pagamento", "Estado"
+                "ID", "Categoria", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -218,31 +200,13 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblHistoricoDePagamentos);
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
-        jLabel1.setText("Historico de Pagamentos");
+        jLabel1.setText("Minha Manutencao");
 
         jPanel2.setBackground(new java.awt.Color(10, 25, 34));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
-
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Metodos de Pagamento");
-
-        cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
-        cbxMetodosDePagamento.setForeground(new java.awt.Color(255, 255, 255));
-        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
-        cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxMetodosDePagamentoActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Mensalidade");
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Novo  Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
         lblValor.setForeground(new java.awt.Color(255, 255, 255));
         lblValor.setText(" ");
-
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Apartamento");
 
         lblApartamento.setForeground(new java.awt.Color(255, 255, 255));
         lblApartamento.setText(" ");
@@ -250,13 +214,25 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 95, 132));
         jButton3.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
         jButton3.setForeground(java.awt.Color.white);
-        jButton3.setText("CONFIRMAR E PAGAR AGORA");
+        jButton3.setText("Enviar Pedido");
         jButton3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 216, 184), 1, true));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setText("Categoria");
+
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Descricao");
+
+        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Canalização", "Eletricidade", "Elevador", "Outro" }));
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane2.setViewportView(txtDescricao);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,36 +243,43 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                            .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxMetodosDePagamento, 0, 123, Short.MAX_VALUE)
-                            .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cbxMetodosDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblValor))
+                    .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblApartamento))
-                .addGap(49, 49, 49)
+                .addComponent(jLabel3)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblValor)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblApartamento))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         jButton2.setBackground(java.awt.Color.blue);
@@ -334,7 +317,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(351, Short.MAX_VALUE)
+                        .addContainerGap(380, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -346,9 +329,11 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addGap(28, 28, 28)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -382,36 +367,31 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxMetodosDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMetodosDePagamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        PainelVisaoMorador visao = (morador != null)
-                ? new PainelVisaoMorador(morador)
-                : new PainelVisaoMorador();
-        visao.setVisible(true);
+        PainelVisaoMorador tela = (morador != null)
+        ? new PainelVisaoMorador(morador)
+        :new PainelVisaoMorador();
+        tela.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-pagar();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-historico_pagamentos();        // TODO add your handling code here:
+historico_manutencao();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 limpar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+enviar_pedido();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,11 +415,12 @@ limpar();        // TODO add your handling code here:
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new telaDePagamentosMorador().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new telaDeManutencaoMoradores().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbxMetodosDePagamento;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -447,12 +428,13 @@ limpar();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblApartamento;
     private javax.swing.JLabel lblValor;
     private javax.swing.JTable tblHistoricoDePagamentos;
+    private javax.swing.JTextArea txtDescricao;
     // End of variables declaration//GEN-END:variables
 }

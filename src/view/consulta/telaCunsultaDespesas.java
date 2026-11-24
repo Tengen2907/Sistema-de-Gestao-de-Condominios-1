@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.consulta;
 
+import view.cadastro.PainelCadastrarApartamentos;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Apartamento;
 import model.Cadastro;
 import model.Despesa;
+import view.cadastro.PainelCadastroDespesas;
 
 /**
  *
@@ -45,7 +47,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
             Object[] linha = new Object[5];
             String categoria = cbxListarDespesas1.getSelectedItem() + "";
             String Despensas = cbxCunsultar.getSelectedItem() + "";
-            Vector x = PainelDespesas.ler_texto();
+            Vector x = PainelCadastroDespesas.ler_texto();
             Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
             for (int j = 0; j < listaApartamentos.size(); j++) {
                 Apartamento apartamento1 = (Apartamento) listaApartamentos.get(j);
@@ -275,7 +277,7 @@ precherTabela();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-PainelDespesas despesas = new PainelDespesas();
+PainelCadastroDespesas despesas = new PainelCadastroDespesas();
 despesas.setVisible(true);
 this.dispose();
 // TODO add your handling code here:

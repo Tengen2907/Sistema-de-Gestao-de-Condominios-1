@@ -2,57 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.consulta;
 
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
-import model.Funcionario;
+import view.funcionarios_admin.TelaPrincipal;
 
 /**
  *
  * @author yurankali
  */
-public class PainelFuncionarios extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelFuncionarios.class.getName());
+public class PainelMoradores extends javax.swing.JFrame {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelMoradores.class.getName());
 
     /**
-     * Creates new form TelaFuncionarios
+     * Creates new form PainelMoradores
      */
-    public PainelFuncionarios() {
+    public PainelMoradores() {
         initComponents();
-    }
-    
-    public void Funcionario() {
-        remover_linha();    
-        try {
-            DefaultTableModel model = (DefaultTableModel) TabelaFuncionario.getModel();
-            Object[] linha = new Object[5];
-            String categoria = cbxcategoria.getSelectedItem() + "";
-            Vector x = PainelCadastroFuncionario.ler_texto();
-            Funcionario funcionario;
-            for (int i = 0; i < x.size(); i++) {
-                funcionario = (Funcionario) x.get(i);
-                if (categoria.equals(funcionario.getCargo())){
-                linha[0] = funcionario.getId();
-                linha[1] = funcionario.getNomeCompleto();
-                linha[2] = funcionario.getTelefone();
-                linha[3] = funcionario.getSalario();
-                linha[4] = funcionario.getEstado();
-                model.addRow(linha);
-                }
-            }
-                
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void remover_linha() {
-        DefaultTableModel model = (DefaultTableModel) TabelaFuncionario.getModel();
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
-        }
+
+   
+
     }
 
     /**
@@ -66,14 +35,14 @@ public class PainelFuncionarios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        cbxcategoria = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TabelaFuncionario = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,12 +51,11 @@ public class PainelFuncionarios extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Funcionarios");
+        jLabel1.setText("Moradores");
 
         jButton1.setBackground(new java.awt.Color(0, 102, 204));
         jButton1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jButton1.setText("Cosultar");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButton1.setText(" Morador");
 
         jButton2.setBackground(new java.awt.Color(0, 102, 204));
         jButton2.setText("Editar");
@@ -105,19 +73,15 @@ public class PainelFuncionarios extends javax.swing.JFrame {
         jButton5.setText("Voltar");
         jButton5.addActionListener(this::jButton5ActionPerformed);
 
-        cbxcategoria.setBackground(new java.awt.Color(0, 102, 204));
-        cbxcategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Categoria--", "-Gestor de Condomínios / Gestor de Conta", "-Supervisor de Condomínio", "-Assistente / Auxiliar Administrativo", "-Contabilista / Técnico de Contabilidade ", "-Técnico de Manutenção / Engenheiro Civil" }));
-        cbxcategoria.addActionListener(this::cbxcategoriaActionPerformed);
-
-        TabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Salario", "Estado"
+                "ID", "Nome", "Bloco", "Telefone", "Estado"
             }
         ));
-        jScrollPane2.setViewportView(TabelaFuncionario);
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,25 +90,20 @@ public class PainelFuncionarios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbxcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(579, 579, 579))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(236, 236, 236)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,18 +112,22 @@ public class PainelFuncionarios extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(520, 520, 520)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,17 +149,9 @@ public class PainelFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new TelaPrincipal().setVisible(true);
-        this.dispose();   
+new TelaPrincipal().setVisible(true);
+        this.dispose();         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void cbxcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxcategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxcategoriaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    Funcionario();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,12 +175,10 @@ public class PainelFuncionarios extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new PainelFuncionarios().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PainelMoradores().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TabelaFuncionario;
-    private javax.swing.JComboBox<String> cbxcategoria;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -234,5 +187,7 @@ public class PainelFuncionarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

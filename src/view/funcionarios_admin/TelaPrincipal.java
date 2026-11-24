@@ -2,11 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.funcionarios_admin;
 
+import view.consulta.PainelMoradores;
+import view.consulta.PainelPagamentos;
+import view.funcionalidades.PainelAvisos;
+import view.funcionalidades.PainelNotificacoes;
+import view.funcionalidades.PainelRelatorios;
+import view.funcionalidades.PainelManutencao;
+import view.cadastro.PainelCadastroFuncionario;
+import view.cadastro.PainelCadastrarApartamentos;
+import view.cadastro.PainelCadastro;
 import java.util.Vector;
 import model.Cadastro;
 import model.Usuario;
+import view.cadastro.PainelCadastroDespesas;
+import view.TelaLogin;
 
 /**
  *
@@ -109,15 +120,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(0, 102, 153));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("admin");
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Adiminstrador Primario");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user-key (1).png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/user-key (1).png"))); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(0, 102, 204));
         jButton1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
@@ -335,7 +344,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel8.setBackground(new java.awt.Color(0, 102, 204));
-        jPanel8.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel4.setText("Ultimos Registos");
@@ -547,7 +555,7 @@ this.dispose();
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        new PainelDespesas().setVisible(true);
+        new PainelCadastroDespesas().setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton4ActionPerformed

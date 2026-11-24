@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.morador;
 
+import view.cadastro.PainelCadastrarApartamentos;
 import java.util.Vector;
 import model.Apartamento;
 import model.Cadastro;
 import model.Pagamento;
+import view.TelaLogin;
 
 /**
  *
@@ -266,7 +268,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user-key (1).png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/user-key (1).png"))); // NOI18N
         jLabel3.setText("Morador");
 
         textenome.setBackground(java.awt.Color.white);

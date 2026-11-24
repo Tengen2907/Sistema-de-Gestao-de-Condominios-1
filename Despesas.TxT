@@ -4,3 +4,9 @@ Gestor de Condomínios / Gestor de Conta
 FIPAG
 768784.0
 ------------------------
+Água
+agua suja
+Gestor de Condomínios / Gestor de Conta
+FIPAG
+2000.0
+------------------------

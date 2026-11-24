@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.cadastro;
 
+import view.funcionarios_admin.TelaPrincipal;
+import view.consulta.telaCunsultaDespesas;
+import view.cadastro.PainelCadastrarApartamentos;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,9 +23,9 @@ import model.Despesa;
  *
  * @author yurankali
  */
-public class PainelDespesas extends javax.swing.JFrame {
+public class PainelCadastroDespesas extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelDespesas.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelCadastroDespesas.class.getName());
 
     /**
      * Creates new form PainelDespesas
@@ -30,7 +33,7 @@ public class PainelDespesas extends javax.swing.JFrame {
     private static final String FICHEIRO = "Despesas.TxT";
     Vector x = new Vector();
 
-    public PainelDespesas() {
+    public PainelCadastroDespesas() {
         initComponents();
         x = ler_texto();
         adicionar();
@@ -480,7 +483,7 @@ this.dispose();// TODO add your handling code here:
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new PainelDespesas().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PainelCadastroDespesas().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
