@@ -199,7 +199,6 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user-key (1).png"))); // NOI18N
         jLabel3.setText("Morador");
 
         lblMorador.setForeground(java.awt.Color.white);
