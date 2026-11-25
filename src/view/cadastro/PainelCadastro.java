@@ -434,6 +434,7 @@ public class PainelCadastro extends javax.swing.JFrame {
         txtContactoDeEmergencia.setBackground(new java.awt.Color(204, 204, 204));
         txtContactoDeEmergencia.addActionListener(this::txtContactoDeEmergenciaActionPerformed);
 
+        txtNuit.setBackground(new java.awt.Color(204, 204, 204));
         txtNuit.addActionListener(this::txtNuitActionPerformed);
 
         jLabel9.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
@@ -597,7 +598,7 @@ public class PainelCadastro extends javax.swing.JFrame {
                         .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtContactoDeEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                         .addGroup(cbxNacionalidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)

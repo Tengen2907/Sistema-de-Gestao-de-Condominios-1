@@ -16,3 +16,9 @@ Gestor de Condomínios / Gestor de Conta
 FIPAG
 1200.0
 ------------------------
+Limpeza
+lixo na rua
+-Técnico de Manutenção / Engenheiro Civil
+Empresa de Limpeza
+100.0
+------------------------
