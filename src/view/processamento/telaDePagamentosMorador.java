@@ -106,7 +106,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             for (int i = 0; i < listarMensalidade.size(); i++) {
                 a = (Apartamento) listarMensalidade.get(i);
 
-                if (idApartamento.equals(a.getId()+"")) {
+                if (idApartamento.equals(a.getId() + "")) {
                     valorMensalidade = a.getMesensalidade();
                     lblValor.setText(valorMensalidade + " MZN");
                     lblApartamento.setText(a.getId() + "-Bloco-" + a.getBloco() + "-Andar-" + a.getAndar());
@@ -120,51 +120,47 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     }
 
     public void pagar() {
-        try{
-        String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
-        if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
-            JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
-        }
+        try {
+            String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
+            if (metodo.trim().isEmpty() || metodo.startsWith("---")) {
+                JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
+            }
 
-        Pagamento p = new Pagamento();
-        Vector pagamentos = ler_pagamentos();
+            Pagamento p = new Pagamento();
+            Vector pagamentos = ler_pagamentos();
 
-        p.setReferencia("Pag" + System.currentTimeMillis());
-        p.setMetodoPagamento(metodo);
-        p.setMoradorId(morador.getId() + "");
-        p.setValor(valorMensalidade);
-        p.setApartametoId(idApartamento);
-        pagamentos.add(p);
-        
+            p.setReferencia("Pag" + System.currentTimeMillis());
+            p.setMetodoPagamento(metodo);
+            p.setMoradorId(morador.getId() + "");
+            p.setValor(valorMensalidade);
+            p.setApartametoId(idApartamento);
+            pagamentos.add(p);
+
             guardar_pagamentos(pagamentos);
-            JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
+            JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: " + valorMensalidade + " MZN");
             cbxMetodosDePagamento.setSelectedIndex(0);
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
             e.printStackTrace();
         }
-        
+
     }
 
     public void historico_pagamentos() {
         DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         model.setRowCount(0);
-        Vector l= ler_pagamentos();
-        String idMorador= morador.getId()+"";
-        for(int i=0; i< l.size(); i++){
-            Pagamento p =(Pagamento) l.get(i);
-            if(idMorador.equals(String.valueOf(p.getMoradorId()).trim())){
+        Vector l = ler_pagamentos();
+        String idMorador = morador.getId() + "";
+        for (int i = 0; i < l.size(); i++) {
+            Pagamento p = (Pagamento) l.get(i);
+            if (idMorador.equals(String.valueOf(p.getMoradorId()).trim())) {
                 model.addRow(new Object[]{
-                p.getReferencia(), p.getValor() +" MZN " ,p.getMetodoPagamento(), " Pago"});
-            }
+                    p.getReferencia(), p.getValor() + " MZN ", p.getMetodoPagamento(), " Pago"});
             }
         }
-    
-    public void limpar(){
-        DefaultTableModel model = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
-        model.setRowCount(0);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -395,7 +391,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         PainelVisaoMorador visao = (morador != null)
                 ? new PainelVisaoMorador(morador)
                 : new PainelVisaoMorador();
@@ -404,15 +400,15 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-pagar();        // TODO add your handling code here:
+        pagar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-historico_pagamentos();        // TODO add your handling code here:
+        historico_pagamentos();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-limpar();        // TODO add your handling code here:
+        limpar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
