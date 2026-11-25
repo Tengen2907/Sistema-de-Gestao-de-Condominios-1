@@ -54,7 +54,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
             
             for (int j = 0; j < listaApartamentos.size(); j++) {
                 Apartamento apartamento1 = (Apartamento) listaApartamentos.get(j);
-                String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
+                //String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
                 
 //                if (categoria.equals(textoApartamento)) {
 //                    for (int i = 0; i < listaApartamentos.size(); i++) {
@@ -69,7 +69,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                                 linha[2] = despesa.getValor();
                                 linha[3] = despesa.getBenificiario();
                                 linha[4] = despesa.getResponsavel();
-                                linha[5] = apartamento1.getAndar();
+                                linha[5] = apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar();
                                 model.addRow(linha);
                             }
                         //}
