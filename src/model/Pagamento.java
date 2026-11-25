@@ -1,12 +1,11 @@
-
 package model;
 
 import java.io.Serializable;
 
+public class Pagamento implements Serializable {
 
-public class Pagamento   implements Serializable {
-    public static   final long seriaVescionuID =1l;
- 
+    public static final long seriaVescionuID = 1l;
+
     private String id;
     private String moradorId;
     private String apartametoId;
@@ -17,6 +16,7 @@ public class Pagamento   implements Serializable {
     private double valor;
     private String metodoPagamento;
     private String dataPagamento;
+
     public Pagamento(String id, String moradorId, String apartametoId, String salario, String referencia, String mesReferencia, int anoReferencia, double valor, String metodoPagamento, String dataPagamento, String estado) {
         this.id = id;
         this.moradorId = moradorId;
@@ -29,9 +29,9 @@ public class Pagamento   implements Serializable {
         this.metodoPagamento = metodoPagamento;
         this.dataPagamento = dataPagamento;
     }
-    
-    public Pagamento(){
-        
+
+    public Pagamento() {
+
     }
 
     public String getId() {
@@ -113,5 +113,5 @@ public class Pagamento   implements Serializable {
     public void setDataPagamento(String dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
-    
+
 }

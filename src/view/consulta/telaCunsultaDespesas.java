@@ -45,7 +45,10 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) TabelaDespesa.getModel();
             Object[] linha = new Object[6];
+<<<<<<< HEAD
             
+=======
+>>>>>>> f1736bc (Programando a tela de relatorio e de manutecao)
             String categoria = cbxListarDespesas1.getSelectedItem() + "";
             String Despensas = cbxCunsultar.getSelectedItem() + "";
             

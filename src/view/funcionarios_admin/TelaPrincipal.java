@@ -4,8 +4,8 @@
  */
 package view.funcionarios_admin;
 
-import view.consulta.PainelMoradores;
-import view.consulta.PainelPagamentos;
+import view.consulta.telaCunsultaMoradores;
+import view.consulta.telaCunsultaPagamentos;
 import view.funcionalidades.PainelAvisos;
 import view.funcionalidades.PainelNotificacoes;
 import view.funcionalidades.PainelRelatorios;
@@ -542,14 +542,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new PainelMoradores().setVisible(true);
+        new telaCunsultaMoradores().setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        new PainelPagamentos().setVisible(true);
+        new telaCunsultaPagamentos().setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton7ActionPerformed
