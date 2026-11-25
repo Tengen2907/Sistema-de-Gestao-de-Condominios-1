@@ -264,7 +264,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Metodos de Pagamento");
 
-        cbxMetodosDePagamento.setForeground(new java.awt.Color(255, 255, 255));
         cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,7 +277,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Cargo");
 
-        txtCargo.setForeground(new java.awt.Color(255, 255, 255));
         txtCargo.setText(" ");
 
         jButton3.setBackground(new java.awt.Color(0, 95, 132));
@@ -294,8 +292,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Nome");
-
-        lblNomeDoFuncionario.setForeground(java.awt.Color.white);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -382,8 +378,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
         jLabel4.setBackground(java.awt.Color.black);
         jLabel4.setText("ID");
-
-        txtID.setForeground(java.awt.Color.white);
 
         jButton5.setBackground(new java.awt.Color(0, 95, 132));
         jButton5.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
