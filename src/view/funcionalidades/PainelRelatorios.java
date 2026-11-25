@@ -27,7 +27,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
         initComponents();
         receitas();
         total_despesas();
-        //saidas();
+        saidas();
     }
 
     public void receitas() {
