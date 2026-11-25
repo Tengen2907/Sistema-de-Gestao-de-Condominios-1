@@ -10,6 +10,7 @@ import model.Pagamento;
 import view.cadastro.PainelCadastroDespesas;
 import view.funcionarios_admin.TelaPrincipal;
 import view.processamento.telaDePagamentosMorador;
+import view.processamento.telaDePagementoFuncionarios;
 
 /**
  *
@@ -26,6 +27,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
         initComponents();
         receitas();
         total_despesas();
+        //saidas();
     }
 
     public void receitas() {
@@ -57,6 +59,15 @@ public class PainelRelatorios extends javax.swing.JFrame {
             }
             txtTotalDespesas.setText(total+" MZN");
         } catch (Exception e) {
+        }
+    }
+    
+    public void saidas(){
+        try {
+            double total= telaDePagementoFuncionarios.total_salarios_pagos();
+            txtTotalSaidas.setText(total + " MZN");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

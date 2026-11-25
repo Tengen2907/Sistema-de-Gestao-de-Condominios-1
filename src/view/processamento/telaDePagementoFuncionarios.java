@@ -40,18 +40,15 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
 
             for (int i = 0; i < y.size(); i++) {
-                Funcionario f = (Funcionario) y.get(i);
-                bw.write(f.getId());
+                Pagamento p = (Pagamento) y.get(i);
+                bw.write(p.getId());
                 bw.newLine();
-                bw.write(pagamento.getReferencia());
+                bw.write(p.getReferencia());
                 bw.newLine();
-                bw.write(pagamento.getMetodoPagamento());
+                bw.write(p.getMetodoPagamento());
                 bw.newLine();
-                bw.write(f.getNomeCompleto());
+                bw.write(String.valueOf(p.getValor() + ""));
                 bw.newLine();
-                bw.write(f.getCargo());
-                bw.newLine();
-                bw.write(f.getSalario() + "");
                 bw.write("----------------------------");
                 bw.newLine();
             }
@@ -70,21 +67,43 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String SalarioId;
+            String idFuncionario;
 
-            while ((SalarioId = br.readLine()) != null) {
-                Funcionario funcionario = new Funcionario();
-                Pagamento pagamento = new Pagamento();
-                pagamento.setReferencia(SalarioId);
-                funcionario.setNomeCompleto(br.readLine());
-                pagamento.setMetodoPagamento(br.readLine());
-                funcionario.setCargo(br.readLine());
-                funcionario.setSalario(Double.parseDouble(br.readLine()));
+            while ((idFuncionario = br.readLine()) != null) {
+                Pagamento p = new Pagamento();
+                p.setId(idFuncionario);
+                p.setReferencia(br.readLine());
+                p.setMetodoPagamento(br.readLine());
+                p.setValor(Double.parseDouble(br.readLine()));
+                br.readLine();
+                y.add(p);
             }
 
         } catch (Exception e) {
         }
         return y;
+    }
+
+    public static double total_receita() {
+        Vector listarPagamentos = telaDePagamentosMorador.ler_pagamentos();
+        double total = 0;
+
+        for (int i = 0; i < listarPagamentos.size(); i++) {
+            Pagamento p = (Pagamento) listarPagamentos.get(i);
+            total += Double.parseDouble(String.valueOf(p.getValor()));
+        }
+        return total;
+    }
+
+    public static double total_salarios_pagos() {
+        Vector listarSalarios = ler_salarios();
+        double total = 0;
+
+        for (int i = 0; i < listarSalarios.size(); i++) {
+            Pagamento p = (Pagamento) listarSalarios.get(i);
+            total += Double.parseDouble(String.valueOf(p.getValor()));
+        }
+        return total;
     }
 
     double salario = 0;
@@ -480,6 +499,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        limpar_campos();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
