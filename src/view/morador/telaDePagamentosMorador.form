@@ -49,6 +49,7 @@
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Meus Pagamentos">
               <Font PropertyName="font" name="Cantarell" size="18" style="1"/>
+              <Color PropertyName="color" blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -147,6 +148,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cantarell" size="18" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Historico de Pagamentos"/>
           </Properties>
         </Component>
@@ -159,6 +163,7 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Pagamentos">
                   <Font PropertyName="font" name="Cantarell" size="18" style="1"/>
+                  <Color PropertyName="color" blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -218,6 +223,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Metodos de Pagamento"/>
               </Properties>
             </Component>
@@ -247,6 +255,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Mensalidade"/>
               </Properties>
             </Component>
@@ -260,6 +271,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Apartamento"/>
               </Properties>
             </Component>

@@ -138,7 +138,6 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             guardar_pagamentos(pagamentos);
             JOptionPane.showMessageDialog(null, "Confirmar o pagamento de: "  +valorMensalidade +" MZN");
             cbxMetodosDePagamento.setSelectedIndex(0);
-//            historico_pagamentos();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
@@ -194,7 +193,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(10, 25, 34));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
 
         tblHistoricoDePagamentos.setBackground(new java.awt.Color(10, 25, 34));
         tblHistoricoDePagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -219,11 +218,13 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblHistoricoDePagamentos);
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Historico de Pagamentos");
 
         jPanel2.setBackground(new java.awt.Color(10, 25, 34));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
 
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Metodos de Pagamento");
 
         cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
@@ -235,11 +236,13 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Mensalidade");
 
         lblValor.setForeground(new java.awt.Color(255, 255, 255));
         lblValor.setText(" ");
 
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Apartamento");
 
         lblApartamento.setForeground(new java.awt.Color(255, 255, 255));
