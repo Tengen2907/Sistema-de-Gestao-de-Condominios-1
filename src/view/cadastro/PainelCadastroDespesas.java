@@ -208,27 +208,19 @@ public class PainelCadastroDespesas extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Categoria:");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Descricao:");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Valor (MT):");
 
         jLabel6.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Responsavel:");
 
         cbxCategoriaDespesas.setBackground(new java.awt.Color(0, 102, 204));
         cbxCategoriaDespesas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  Seleciona a Categoria", "Água", "Energia", " Salário", "Limpeza", " Segurança", " Manutenção", " Reparações", "Material de escritório", " Impostos e taxas", "Outras" }));
-
-        txtValor.setBackground(new java.awt.Color(255, 255, 255));
-
-        texDescricao.setBackground(new java.awt.Color(255, 255, 255));
 
         cbxResponsavel.setBackground(new java.awt.Color(0, 102, 204));
         cbxResponsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleciona--", "Gestor de Condomínios / Gestor de Conta", "-Supervisor de Condomínio", "-Assistente / Auxiliar Administrativo", "-Contabilista / Técnico de Contabilidade ", "-Técnico de Manutenção / Engenheiro Civil" }));
@@ -241,17 +233,15 @@ public class PainelCadastroDespesas extends javax.swing.JFrame {
         jButton6.addActionListener(this::jButton6ActionPerformed);
 
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Beneficiarios:");
 
         cbxbeneficiarios.setBackground(new java.awt.Color(0, 102, 204));
-        cbxbeneficiarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIPAG", "EDM", "Tmcel", "Vodacom", "Movitel", "Empresa de Segurança", "Empresa de Limpeza", "Empresa de Manutenção", "Empresa de Elevadores", "Empresa de Recolha de Lixo", "Jardineiro", "Canalizador", "Eletricista", "Técnico de Gerador", "Técnico de CCTV", "Empresa de Desinfestação", "Pintor", "Serralheiro", "Carpinteiro", "Fornecedor de Material de Construção", "Fornecedor de Material Elétrico", "Distribuidor de Água", "Empresa de Extintores", "Contabilista", "Advogado", "Prestador de Serviços", "Administração do Condomínio", "Outro" }));
+        cbxbeneficiarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIPAG", "EDM", "Tmcel", "Vodacom", "Movitel", "Empresa de Segurança", "Empresa de Limpeza", "Empresa de Manutenção", "Empresa de Elevadores", "Empresa de Recolha de Lixo", "Jardineiro", "Canalizador", "Eletricista", "Técnico de Gerador", "Técnico de CCTV", "Empresa de Desinfestação", "Pintor", "Serralheiro", "Carpinteiro", "Fornecedor de Material de Construção", "Fornecedor de Material Elétrico", "Funcionarios", "Distribuidor de Água", "Empresa de Extintores", "Contabilista", "Advogado", "Prestador de Serviços", "Administração do Condomínio", "Outro" }));
         cbxbeneficiarios.addActionListener(this::cbxbeneficiariosActionPerformed);
 
         cbxCunsultar.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Aparatamento:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -370,11 +360,9 @@ public class PainelCadastroDespesas extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Resgistar Despesas");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Controle de Despesas");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);

@@ -10,3 +10,9 @@ Gestor de Condomínios / Gestor de Conta
 FIPAG
 2000.0
 ------------------------
+Água
+Falta de agua nos apartamentos
+Gestor de Condomínios / Gestor de Conta
+FIPAG
+1200.0
+------------------------

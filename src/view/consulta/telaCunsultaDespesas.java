@@ -44,18 +44,22 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         remover_linha();
         try {
             DefaultTableModel model = (DefaultTableModel) TabelaDespesa.getModel();
-            Object[] linha = new Object[5];
+            Object[] linha = new Object[6];
+            
             String categoria = cbxListarDespesas1.getSelectedItem() + "";
             String Despensas = cbxCunsultar.getSelectedItem() + "";
+            
             Vector x = PainelCadastroDespesas.ler_texto();
             Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
+            
             for (int j = 0; j < listaApartamentos.size(); j++) {
                 Apartamento apartamento1 = (Apartamento) listaApartamentos.get(j);
                 String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
-                if (categoria.equals(textoApartamento)) {
-                    for (int i = 0; i < listaApartamentos.size(); i++) {
-                        Cadastro cadastro = (Cadastro) listaApartamentos.get(i);
-                        if ((apartamento1.getId() + "").equals(cadastro.getApartamento())) {
+                
+//                if (categoria.equals(textoApartamento)) {
+//                    for (int i = 0; i < listaApartamentos.size(); i++) {
+//                        Cadastro cadastro = (Cadastro) listaApartamentos.get(i);
+//                        if ((apartamento1.getId() + "").equals(cadastro.getApartamento())) {
                             Despesa despesa;
 
                             despesa = (Despesa) x.get(j);
@@ -68,10 +72,10 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                                 linha[5] = apartamento1.getAndar();
                                 model.addRow(linha);
                             }
-                        }
+                        //}
 
-                    }
-                }
+                    //}
+                //}
             }
         } catch (Exception e) {
             e.printStackTrace();
