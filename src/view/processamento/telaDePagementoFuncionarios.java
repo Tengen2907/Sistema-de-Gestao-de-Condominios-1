@@ -36,11 +36,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         initComponents();
     }
 
-    public telaDePagementoFuncionarios(Funcionario funcionario) {
-        this.funcionario = funcionario;
-        initComponents();
-        exibir_dados();
-    }
+
 
     public void guardar_salarios(Vector y) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
@@ -97,45 +93,50 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
     public void exibir_dados() {
         Vector listarFuncionarios = PainelCadastroFuncionario.ler_texto();
-        Vector listarPagamentos = PainelCadastroFuncionario.ler_texto();
+       // Vector listarPagamentos = PainelCadastroFuncionario.ler_texto();
 
-        Funcionario f;
-        int id;
-        id = Integer.parseInt(txtID.getText().trim());
+        String id=txtID.getText().trim();
+        if(id.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Digite o ID no formulario!");
+        }
+        id =txtID.getText().trim();
         for (int i = 0; i < listarFuncionarios.size(); i++) {
-            f = (Funcionario) listarFuncionarios.get(i);
-            if (id == funcionario.getId()) {
-                salario = f.getSalario();
+            Funcionario f= (Funcionario) listarFuncionarios.get(i);
+            if (String.valueOf(f.getId()).equals(id)) {
+                funcionario =f;
                 lblNomeDoFuncionario.setText(f.getNomeCompleto());
-                cbxMetodosDePagamento.setSelectedItem(pagamento.getMetodoPagamento());
                 txtCargo.setText(f.getCargo());
                 txtSalario.setText(salario + " MZN");
-
+                return;
             }
         }
     }
 
     public void pagar_salario() {
+        if(funcionario == null){
+            JOptionPane.showMessageDialog(null, "Procure un funcionario");
+            return;
+        }
+        
+        String metodoDePagamento= cbxMetodosDePagamento.getSelectedItem()+"";
+        if(metodoDePagamento.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
+            return;
+        }
         try {
-
-            String metodoDePagamento = cbxMetodosDePagamento.getSelectedItem() + "";
-            if (metodoDePagamento.trim().isEmpty() || metodoDePagamento.startsWith("----")) {
-                JOptionPane.showMessageDialog(rootPane, "Selecione o metodo de pagamento!");
-            }
-
-            Pagamento p = new Pagamento();
-            Funcionario f = new Funcionario();
-            Vector salarios = ler_salarios();
-//            Vector funcionario= ler_texto();
-
-            p.setReferencia("sal" + System.currentTimeMillis());
+            Pagamento p= new Pagamento();
+            p.setId(String.valueOf(funcionario.getId()));
+            p.setReferencia("sal"+ System.currentTimeMillis());
             p.setMetodoPagamento(metodoDePagamento);
-            p.setSalario(salario + "MZN");
-
+            p.setValor(salario);
+            
+            Vector salarios= ler_salarios();
             salarios.add(p);
-
             guardar_salarios(salarios);
-            JOptionPane.showMessageDialog(null, "Funcionario " + f.getNomeCompleto() + " Foi pago!");
+            
+            JOptionPane.showMessageDialog(null, "Funcionario " +funcionario.getNomeCompleto()+" foi pagp!");
+            limpar_campos();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao efectuar o pagamento de salario");
             e.printStackTrace();
@@ -143,20 +144,29 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }
 
     public void historico_salarios() {
-        DefaultTableModel modelo= (DefaultTableModel) tblHistoricoDePagamentos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         modelo.setRowCount(0);
-        
+
         Vector l= ler_salarios();
-        String idFuncionario= funcionario.getId()+"";
-        for(int i=0; i<l.size();i++){
+        String idFuncionario= String.valueOf(funcionario.getId());
+        
+        for(int i= 0; i< l.size();i++){
             Pagamento p= (Pagamento) l.get(i);
-            if(idFuncionario.equals(String.valueOf(p.getId().trim()))){
-                modelo.addRow(new Object[]{p.getReferencia(), p.getValor() + " MZN ", p.getMetodoPagamento(), " Pago"});                    
-                
+            if(idFuncionario.equals(p.getId().trim())){
+                modelo.addRow(new Object[]{p.getReferencia(), p.getValor()+" MZN", p.getMetodoPagamento(), "Pago"});
             }
         }
     }
 
+    public void limpar_campos() {
+        this.funcionario = null;
+        salario = 0;
+        txtID.setText("");
+        lblNomeDoFuncionario.setText("");
+        txtCargo.setText("");
+        txtSalario.setText("");
+        cbxMetodosDePagamento.getSelectedIndex();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -350,6 +360,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jLabel4.setText("ID");
 
         txtID.setBackground(new java.awt.Color(10, 25, 34));
+        txtID.setForeground(java.awt.Color.white);
 
         jButton5.setBackground(new java.awt.Color(0, 95, 132));
         jButton5.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
@@ -461,7 +472,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+pagar_salario();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -470,13 +481,14 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        historico_salarios();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+exibir_dados();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
