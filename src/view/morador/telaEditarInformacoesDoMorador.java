@@ -4,28 +4,82 @@
  */
 package view.morador;
 
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import model.Cadastro;
 import view.TelaLogin;
+import view.cadastro.PainelCadastro;
 
 /**
  *
  * @author tengen
  */
 public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaEditarInformacoesDoMorador.class.getName());
     private Cadastro morador;
-    
+    Vector x= new Vector();
     /**
      * Creates new form telaEditarInformacoesDoMorador
      */
     public telaEditarInformacoesDoMorador() {
         initComponents();
     }
-    
-    public telaEditarInformacoesDoMorador(Cadastro morador){
+
+    public telaEditarInformacoesDoMorador(Cadastro morador) {
         initComponents();
-        this.morador= morador;
+        this.morador = morador;
+        mostrar_id();
+    }
+
+    public void mostrar_id() {
+        Vector perfil = PainelCadastro.ler_texto();
+
+        Cadastro morador;
+        for (int i = 0; i < perfil.size(); i++) {
+            morador= (Cadastro) perfil.get(i);
+            if(morador != null && morador.getId() == this.morador.getId()){
+            lblID.setText(morador.getId()+"");
+            txtNome.setText(morador.getNomeCompleto());
+            txtTelefone.setText(morador.getTelefone());
+            txtEmail.setText(morador.getEmail());
+            txtNUIT.setText(morador.getNUIT());
+            }
+        }
+    }
+    
+    public void editar(){
+        try{
+            Vector lista= PainelCadastro.ler_texto();
+        Cadastro morador;
+        int indice=0;
+        boolean y=false;
+        
+        for(int i = 0; i < lista.size(); i++){
+            morador=(Cadastro) lista.get(i);
+            if(morador != null && morador.getId() == this.morador.getId()){
+                indice = 1;
+                y=true;
+                i=x.size();
+            }
+        }
+        
+        if(y=true){
+            morador = new Cadastro();
+            morador.setNomeCompleto(txtNome.getText());
+            morador.setTelefone(txtTelefone.getText());
+            morador.setEmail(txtEmail.getText());
+            morador.setNUIT(txtNUIT.getText());
+            
+            int r = JOptionPane.showInternalConfirmDialog(null, "Confirmar a actulizacao dos dados?");
+            if(r == JOptionPane.YES_OPTION){
+                lista.set(indice, morador);
+            }
+        }
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -59,7 +113,8 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtNUIT = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,15 +214,19 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
         lblMorador.setForeground(java.awt.Color.white);
         lblMorador.setText(" ");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user-key (1).png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/user-key (1).png"))); // NOI18N
         jLabel4.setText("Morador");
 
+        jLabel5.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel5.setText("Nome");
 
+        jLabel6.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel6.setText("Telefone");
 
+        jLabel7.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel7.setText("Email");
 
+        jLabel9.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel9.setText("NUIT");
 
         jLabel10.setText("Alguns dados nao podem ser alterados sem a permissao do administrador");
@@ -194,15 +253,8 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
         txtNUIT.setBackground(new java.awt.Color(10, 48, 50));
         txtNUIT.setForeground(java.awt.Color.white);
 
-        jButton3.setBackground(java.awt.Color.blue);
-        jButton3.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
-        jButton3.setForeground(java.awt.Color.white);
-        jButton3.setText("Limpar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jLabel8.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        jLabel8.setText("ID");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -213,30 +265,32 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMorador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel9))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNome)
+                                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                                     .addComponent(txtTelefone)
                                     .addComponent(txtEmail)
-                                    .addComponent(txtNUIT)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                                        .addComponent(jButton3)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(txtNUIT))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMorador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jLabel10)
                         .addGap(0, 310, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +298,10 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -261,11 +318,9 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNUIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(36, 36, 36))
         );
@@ -321,8 +376,8 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         PainelVisaoMorador visao = (morador != null)
-        ? new PainelVisaoMorador(morador)
-        : new PainelVisaoMorador();
+                ? new PainelVisaoMorador(morador)
+                : new PainelVisaoMorador();
         visao.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -334,36 +389,32 @@ public class telaEditarInformacoesDoMorador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-telaDeManutencaoMoradores manutencao= (morador != null)       // TODO add your handling code here:
-        ?new telaDeManutencaoMoradores(morador)
-        :new telaDeManutencaoMoradores();
-manutencao.setVisible(true);
-this.dispose();
+        telaDeManutencaoMoradores manutencao = (morador != null) // TODO add your handling code here:
+                ? new telaDeManutencaoMoradores(morador)
+                : new telaDeManutencaoMoradores();
+        manutencao.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-    telaDePagamentosMorador visao= (morador != null)
-    ? new telaDePagamentosMorador(morador)   // TODO add your handling code here:
-            :new telaDePagamentosMorador();
-    visao.setVisible(true);
-    this.dispose();
+        telaDePagamentosMorador visao = (morador != null)
+                ? new telaDePagamentosMorador(morador) // TODO add your handling code here:
+                : new telaDePagamentosMorador();
+        visao.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-telaPerfilDoMorador perfil= (morador != null)        // TODO add your handling code here:
-        ?new telaPerfilDoMorador(morador)
-        :new telaPerfilDoMorador();
-perfil.setVisible(true);
-this.dispose();
+        telaPerfilDoMorador perfil = (morador != null) // TODO add your handling code here:
+                ? new telaPerfilDoMorador(morador)
+                : new telaPerfilDoMorador();
+        perfil.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+editar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,7 +446,6 @@ this.dispose();
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -406,10 +456,12 @@ this.dispose();
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblMorador;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNUIT;
