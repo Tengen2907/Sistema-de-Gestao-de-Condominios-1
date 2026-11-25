@@ -4,6 +4,8 @@
  */
 package view.morador;
 
+import view.processamento.telaDePagamentosMorador;
+import view.processamento.telaDeManutencaoMoradores;
 import view.cadastro.PainelCadastrarApartamentos;
 import java.util.Vector;
 import model.Apartamento;

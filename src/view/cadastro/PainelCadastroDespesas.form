@@ -227,18 +227,17 @@
                   <Color blue="cc" green="66" red="0" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="11">
-                    <StringItem index="0" value="  Seleciona a Categoria"/>
+                  <StringArray count="10">
+                    <StringItem index="0" value="Seleciona a Categoria"/>
                     <StringItem index="1" value="&#xc1;gua"/>
                     <StringItem index="2" value="Energia"/>
-                    <StringItem index="3" value=" Sal&#xe1;rio"/>
-                    <StringItem index="4" value="Limpeza"/>
-                    <StringItem index="5" value=" Seguran&#xe7;a"/>
-                    <StringItem index="6" value=" Manuten&#xe7;&#xe3;o"/>
-                    <StringItem index="7" value=" Repara&#xe7;&#xf5;es"/>
-                    <StringItem index="8" value="Material de escrit&#xf3;rio"/>
-                    <StringItem index="9" value=" Impostos e taxas"/>
-                    <StringItem index="10" value="Outras"/>
+                    <StringItem index="3" value="Limpeza"/>
+                    <StringItem index="4" value="Seguran&#xe7;a"/>
+                    <StringItem index="5" value="Manuten&#xe7;&#xe3;o"/>
+                    <StringItem index="6" value="Repara&#xe7;&#xf5;es"/>
+                    <StringItem index="7" value="Material de escrit&#xf3;rio"/>
+                    <StringItem index="8" value="Impostos e taxas"/>
+                    <StringItem index="9" value="Outras"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -17,7 +17,7 @@ import java.util.Vector;
 import model.Pagamento;
 import view.cadastro.PainelCadastroDespesas;
 import view.TelaLogin;
-import view.morador.telaDePagamentosMorador;
+import view.processamento.telaDePagamentosMorador;
 
 /**
  *

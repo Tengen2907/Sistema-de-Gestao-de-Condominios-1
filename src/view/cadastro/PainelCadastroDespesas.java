@@ -220,7 +220,7 @@ public class PainelCadastroDespesas extends javax.swing.JFrame {
         jLabel6.setText("Responsavel:");
 
         cbxCategoriaDespesas.setBackground(new java.awt.Color(0, 102, 204));
-        cbxCategoriaDespesas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  Seleciona a Categoria", "Água", "Energia", " Salário", "Limpeza", " Segurança", " Manutenção", " Reparações", "Material de escritório", " Impostos e taxas", "Outras" }));
+        cbxCategoriaDespesas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleciona a Categoria", "Água", "Energia", "Limpeza", "Segurança", "Manutenção", "Reparações", "Material de escritório", "Impostos e taxas", "Outras" }));
 
         cbxResponsavel.setBackground(new java.awt.Color(0, 102, 204));
         cbxResponsavel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleciona--", "Gestor de Condomínios / Gestor de Conta", "-Supervisor de Condomínio", "-Assistente / Auxiliar Administrativo", "-Contabilista / Técnico de Contabilidade ", "-Técnico de Manutenção / Engenheiro Civil" }));

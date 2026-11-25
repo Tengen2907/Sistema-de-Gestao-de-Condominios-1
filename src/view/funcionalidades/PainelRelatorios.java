@@ -9,7 +9,7 @@ import model.Despesa;
 import model.Pagamento;
 import view.cadastro.PainelCadastroDespesas;
 import view.funcionarios_admin.TelaPrincipal;
-import view.morador.telaDePagamentosMorador;
+import view.processamento.telaDePagamentosMorador;
 
 /**
  *
