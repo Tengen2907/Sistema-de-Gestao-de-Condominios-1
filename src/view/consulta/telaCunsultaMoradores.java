@@ -16,14 +16,14 @@ import view.funcionarios_admin.TelaPrincipal;
  *
  * @author yurankali
  */
-public class PainelMoradores extends javax.swing.JFrame {
+public class telaCunsultaMoradores extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelMoradores.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaCunsultaMoradores.class.getName());
 
     /**
      * Creates new form PainelMoradores
      */
-    public PainelMoradores() {
+    public telaCunsultaMoradores() {
         initComponents();
 
     }
@@ -210,7 +210,7 @@ public class PainelMoradores extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new PainelMoradores().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new telaCunsultaMoradores().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
