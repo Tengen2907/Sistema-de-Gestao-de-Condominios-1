@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 import model.Pagamento;
-import static view.cadastro.PainelCadastrarApartamentos.ler_texto;
 import view.cadastro.PainelCadastroFuncionario;
+import view.funcionarios_admin.TelaPrincipal;
 
 /**
  *
@@ -35,8 +35,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     public telaDePagementoFuncionarios() {
         initComponents();
     }
-
-
 
     public void guardar_salarios(Vector y) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
@@ -93,17 +91,16 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
     public void exibir_dados() {
         Vector listarFuncionarios = PainelCadastroFuncionario.ler_texto();
-       // Vector listarPagamentos = PainelCadastroFuncionario.ler_texto();
 
-        String id=txtID.getText().trim();
-        if(id.isEmpty()){
+        String id = txtID.getText().trim();
+        if (id.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite o ID no formulario!");
         }
-        id =txtID.getText().trim();
+        id = txtID.getText().trim();
         for (int i = 0; i < listarFuncionarios.size(); i++) {
-            Funcionario f= (Funcionario) listarFuncionarios.get(i);
+            Funcionario f = (Funcionario) listarFuncionarios.get(i);
             if (String.valueOf(f.getId()).equals(id)) {
-                funcionario =f;
+                funcionario = f;
                 lblNomeDoFuncionario.setText(f.getNomeCompleto());
                 txtCargo.setText(f.getCargo());
                 txtSalario.setText(salario + " MZN");
@@ -113,30 +110,30 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }
 
     public void pagar_salario() {
-        if(funcionario == null){
+        if (funcionario == null) {
             JOptionPane.showMessageDialog(null, "Procure un funcionario");
             return;
         }
-        
-        String metodoDePagamento= cbxMetodosDePagamento.getSelectedItem()+"";
-        if(metodoDePagamento.trim().isEmpty()){
+
+        String metodoDePagamento = cbxMetodosDePagamento.getSelectedItem() + "";
+        if (metodoDePagamento.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
             return;
         }
         try {
-            Pagamento p= new Pagamento();
+            Pagamento p = new Pagamento();
             p.setId(String.valueOf(funcionario.getId()));
-            p.setReferencia("sal"+ System.currentTimeMillis());
+            p.setReferencia("sal" + System.currentTimeMillis());
             p.setMetodoPagamento(metodoDePagamento);
             p.setValor(salario);
-            
-            Vector salarios= ler_salarios();
+
+            Vector salarios = ler_salarios();
             salarios.add(p);
             guardar_salarios(salarios);
-            
-            JOptionPane.showMessageDialog(null, "Funcionario " +funcionario.getNomeCompleto()+" foi pagp!");
+
+            JOptionPane.showMessageDialog(null, "Funcionario " + funcionario.getNomeCompleto() + " foi pagp!");
             limpar_campos();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao efectuar o pagamento de salario");
             e.printStackTrace();
@@ -147,13 +144,13 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         modelo.setRowCount(0);
 
-        Vector l= ler_salarios();
-        String idFuncionario= String.valueOf(funcionario.getId());
-        
-        for(int i= 0; i< l.size();i++){
-            Pagamento p= (Pagamento) l.get(i);
-            if(idFuncionario.equals(p.getId().trim())){
-                modelo.addRow(new Object[]{p.getReferencia(), p.getValor()+" MZN", p.getMetodoPagamento(), "Pago"});
+        Vector l = ler_salarios();
+        String idFuncionario = String.valueOf(funcionario.getId());
+
+        for (int i = 0; i < l.size(); i++) {
+            Pagamento p = (Pagamento) l.get(i);
+            if (idFuncionario.equals(p.getId().trim())) {
+                modelo.addRow(new Object[]{p.getReferencia(), p.getValor() + " MZN", p.getMetodoPagamento(), "Pago"});
             }
         }
     }
@@ -279,7 +276,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -292,7 +289,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                                     .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblNomeDoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -309,17 +306,14 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbxMetodosDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCargo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel5)
+                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -472,12 +466,13 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-pagar_salario();        // TODO add your handling code here:
+        pagar_salario();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-
+        TelaPrincipal principal = new TelaPrincipal();
+        principal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -488,7 +483,7 @@ pagar_salario();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-exibir_dados();        // TODO add your handling code here:
+        exibir_dados();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
