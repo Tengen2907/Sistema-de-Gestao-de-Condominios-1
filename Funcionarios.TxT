@@ -6,7 +6,7 @@ admin111
 123456
 2003
 -Supervisor de Condomínio
-120000.0
+12000.0
 --------------------
 SR Yuran
 100076hue
@@ -16,5 +16,5 @@ SR Yuran
 874722645
 2000
 -Gestor de Condomínios / Gestor de Conta
-2000.0
+12800.0
 --------------------
