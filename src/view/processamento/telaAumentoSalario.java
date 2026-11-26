@@ -34,7 +34,7 @@ public class telaAumentoSalario extends javax.swing.JFrame {
             Funcionario f = (Funcionario) l.get(i);
             model.addRow(new Object[]{
                 f.getId(), f.getNomeCompleto(), f.getCargo(), f.getTelefone(),
-                f.getEstado(), f.getSalario(), f.getSalario()});
+                f.getSalario()});
         }
     }
 
@@ -57,23 +57,24 @@ public class telaAumentoSalario extends javax.swing.JFrame {
 
         try {
             String id = txtID.getText().trim();
-            int novoSalario = Integer.parseInt(txtNovoSalario.getText().trim());
+            double novoSalario = Double.parseDouble(txtNovoSalario.getText().trim());
             if (novoSalario <= 0) {
                 JOptionPane.showMessageDialog(null, "Novo salario invalido");
                 return;
             }
+            
             Vector l = PainelCadastroFuncionario.ler_texto();
-            boolean encontrado = false;
+            Funcionario alvo=null;
             double salarioAnterior = 0;
+            
             for (int i = 0; i < l.size(); i++) {
                 Funcionario f = (Funcionario) l.get(i);
                 if (id.equals(f.getId() + "")) {
-                    salarioAnterior = f.getSalario();
-                    f.setSalario(novoSalario);
-                    encontrado = true;
+                    alvo= f;
+                    salarioAnterior=f.getSalario();
                 }
             }
-            if (!encontrado) {
+            if (alvo == null) {
                 JOptionPane.showMessageDialog(null, "Funcionario nao encontrado");
                 return;
             }
@@ -83,7 +84,8 @@ public class telaAumentoSalario extends javax.swing.JFrame {
                 return;
             }
 
-            PainelCadastroFuncionario.ler_texto();
+            alvo.setSalario(novoSalario);
+            PainelCadastroFuncionario.guardar_texto(l);
             
             String tipo;
             if (novoSalario > salarioAnterior) {
@@ -99,6 +101,9 @@ public class telaAumentoSalario extends javax.swing.JFrame {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Novo salario invalido");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Falha ao actuaaliza o salario");
+            e.printStackTrace();
         }
     }
 
@@ -137,7 +142,6 @@ public class telaAumentoSalario extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Processar Aumento de Salario");
 
         jButton5.setBackground(new java.awt.Color(0, 102, 204));
@@ -151,11 +155,11 @@ public class telaAumentoSalario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Bloco", "Telefone", "Estado Civil", "Salario", "Salario Actual"
+                "ID", "Nome", "Cargo", "Telefone", "Salario Novo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -166,11 +170,10 @@ public class telaAumentoSalario extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 102, 204));
         jButton3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jButton3.setText("Mostrar Aumentos");
+        jButton3.setText("Mostrar Salarios");
         jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("ID");
 
         jButton4.setBackground(new java.awt.Color(0, 102, 204));
@@ -179,14 +182,11 @@ public class telaAumentoSalario extends javax.swing.JFrame {
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jPanel2.setBackground(java.awt.Color.white);
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aumentar salario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 18), java.awt.Color.black)); // NOI18N
-        jPanel2.setForeground(java.awt.Color.black);
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aumentar salario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 18))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Cargo");
 
-        lblCargo.setForeground(java.awt.Color.black);
         lblCargo.setText(" ");
 
         jButton6.setBackground(new java.awt.Color(0, 95, 132));
@@ -197,23 +197,18 @@ public class telaAumentoSalario extends javax.swing.JFrame {
         jButton6.addActionListener(this::jButton6ActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("Salario");
 
-        lblSalario.setForeground(java.awt.Color.black);
         lblSalario.setText(" ");
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Nome Completo");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("Novo Salario");
 
         txtNovoSalario.setBackground(java.awt.Color.lightGray);
         txtNovoSalario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        txtNovoSalario.setForeground(java.awt.Color.black);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -290,11 +285,13 @@ public class telaAumentoSalario extends javax.swing.JFrame {
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -311,10 +308,11 @@ public class telaAumentoSalario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import model.Funcionario;
@@ -37,7 +38,7 @@ import view.funcionarios_admin.TelaPrincipal;
 
      
 
-        public static void guardar_texto(Vector y) {
+        public static void guardar_texto(Vector y) throws IOException{
             try {
                 File file = new File(FICHEIRO);
                 FileWriter fw = new FileWriter(file);
