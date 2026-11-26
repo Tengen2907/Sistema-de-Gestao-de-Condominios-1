@@ -4,7 +4,19 @@
  */
 package view.funcionalidades;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Apartamento;
+import model.Emergencia;
+import view.cadastro.PainelCadastrarApartamentos;
+import view.cadastro.PainelCadastroDespesas;
 
 /**
  *
@@ -13,12 +25,85 @@ import javax.swing.JOptionPane;
 public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PainelDeContactosDeEmergencia.class.getName());
+    private static final String FICHEIRO = "ContactosEmergencia.TxT";
+    Vector x = new Vector();
 
     /**
      * Creates new form PainelDeContactosDeEmergencia
      */
     public PainelDeContactosDeEmergencia() {
         initComponents();
+        x = ler_texto();
+        adicionar();
+    }
+
+    public void guardar_texto(Vector y) throws IOException {
+        File file = new File(FICHEIRO);
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        String id, apart, nc, tel, pare, alter;
+        Emergencia emergencia;
+        for (int i = 0; i < y.size(); i++) {
+            emergencia = (Emergencia) y.get(i);
+            id = emergencia.getId() + "";
+            apart = emergencia.getApartamento();
+            nc = emergencia.getNomeContacto();
+            tel = emergencia.getTelefone();
+            pare = emergencia.getParentesco();
+            alter = emergencia.getContactoAlternativo();
+            bw.write(id);
+            bw.newLine();
+            bw.write(apart);
+            bw.newLine();
+            bw.write(nc);
+            bw.newLine();
+            bw.write(tel);
+            bw.newLine();
+            bw.write(pare);
+            bw.newLine();
+            bw.write(alter);
+            bw.newLine();
+            bw.write("--------------------");
+            bw.newLine();
+
+        }
+        bw.close();
+
+    }
+
+    public static Vector ler_texto() {
+        Vector y = new Vector();
+        File file = new File(FICHEIRO);
+
+        if (!file.exists()) {
+            return y;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+            String dp;
+
+            while ((dp = br.readLine()) != null) {
+
+                Emergencia emergencia = new Emergencia();
+
+                emergencia.setId(Integer.parseInt(dp));
+                emergencia.setApartamento(br.readLine());
+                emergencia.setNomeContacto(br.readLine());
+                emergencia.setTelefone(br.readLine());
+                emergencia.setParentesco(br.readLine());
+                emergencia.setContactoAlternativo(br.readLine());
+
+                br.readLine();
+
+                y.add(emergencia);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return y;
     }
 
     public void CadastrarContactosDEEmergecia() {
@@ -30,9 +115,89 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
             txtid.requestFocus();
             return;
         }
-        String categoria1 = cbxapartamento.getSelectedItem()+"";
-       
+        String Apartamento = cbxapartamento.getSelectedItem() + "";
+        String nomeConctato = txtNomeContacto.getText();
+        String telefone = txtTelefone.getText();
+        String parentesco = cbxparentesco.getSelectedItem() + "";
+        String telefoneAlternativo = txtalternativo.getText();
+
+        Emergencia emergencia = new Emergencia();
+
+        emergencia.setApartamento(Apartamento);
+        emergencia.setNomeContacto(nomeConctato);
+        emergencia.setParentesco(parentesco);
+        emergencia.setContactoAlternativo(telefoneAlternativo);
+        emergencia.setTelefone(telefone);
+        x.add(emergencia);
+        try {
+            guardar_texto(x);
+            JOptionPane.showMessageDialog(null, "Emergencia registada com sucesso!");
+            limpar();
+
+        } catch (Exception e) {
+            x.remove(emergencia);
+            JOptionPane.showMessageDialog(null, "Falha ao registar!");
+            e.printStackTrace();
+        }
+
     }
+
+    public void limpar() {
+        txtid.setText("");
+        cbxapartamento.setSelectedIndex(0);
+        txtNomeContacto.setText("");
+        txtTelefone.setText("");
+        cbxparentesco.setSelectedIndex(0);
+        txtalternativo.setText("");
+
+    }
+
+    public void adicionar() {
+        cbxapartamento.removeAllItems();
+        Vector listarApartamentos = PainelCadastrarApartamentos.ler_texto();
+        Apartamento apartamento1;
+
+        for (int i = 0; i < listarApartamentos.size(); i++) {
+            apartamento1 = (Apartamento) listarApartamentos.get(i);
+            cbxapartamento.addItem(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
+        }
+
+    }
+    public void precherTabela() {
+    remover_linha();
+
+    try {
+        DefaultTableModel model = (DefaultTableModel) TabelaEmergencia.getModel();
+        Object[] linha = new Object[6];
+
+        Vector x = PainelDeContactosDeEmergencia.ler_texto();
+
+        for (int j = 0; j < x.size(); j++) {
+
+            Emergencia emergencia;
+            emergencia = (Emergencia) x.get(j);
+
+            linha[0] = emergencia.getId();
+            linha[1] = emergencia.getApartamento();
+            linha[2] = emergencia.getNomeContacto();
+            linha[3] = emergencia.getTelefone();
+            linha[4] = emergencia.getParentesco();
+            linha[5] = emergencia.getContactoAlternativo();
+
+            model.addRow(linha);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    public void remover_linha() {
+    DefaultTableModel model = (DefaultTableModel) TabelaEmergencia.getModel();
+
+    while (model.getRowCount() > 0) {
+        model.removeRow(0);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,7 +210,7 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabelaEmergencia = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         cbxapartamento = new javax.swing.JComboBox<>();
@@ -62,21 +227,22 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaEmergencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Morador", "Apartamento", "Nome do Contacto", "Telefone", "Parentesco"
+                "ID", "Apartamento", "Nome do Contacto", "Telefone", "Parentesco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,7 +253,7 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TabelaEmergencia);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -97,6 +263,7 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
 
         cbxapartamento.setBackground(new java.awt.Color(0, 102, 204));
         cbxapartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Canalização", "Eletricidade", "Elevador", "Outro" }));
+        cbxapartamento.addActionListener(this::cbxapartamentoActionPerformed);
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -115,7 +282,7 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
         jLabel5.setText("Nome do Contacto:");
 
         cbxparentesco.setBackground(new java.awt.Color(0, 102, 204));
-        cbxparentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Canalização", "Eletricidade", "Elevador", "Outro" }));
+        cbxparentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Pai", "Mãe", "Esposo / Esposa", "Filho / Filha", "Irmão / Irmã", "Tio / Tia", "Primo / Prima", "Avô / Avó", "Amigo / Amiga", "Outro" }));
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -183,9 +350,9 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
                 .addComponent(txtNomeContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtalternativo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGap(23, 23, 23))
         );
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 204));
@@ -194,11 +361,6 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Controle na Tabela");
-
-        jButton2.setBackground(new java.awt.Color(0, 102, 204));
-        jButton2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jButton2.setText("Registar");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -209,26 +371,18 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(237, 237, 237)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel10.setText("Contactos de Emergencia");
-
-        jButton4.setBackground(new java.awt.Color(0, 102, 204));
-        jButton4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jButton4.setText("Sair");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -237,15 +391,27 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jButton2.setBackground(new java.awt.Color(0, 102, 204));
+        jButton2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jButton2.setText("Registar");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        jButton4.setBackground(new java.awt.Color(0, 102, 204));
+        jButton4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jButton4.setText("Sair");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+
+        jButton5.setBackground(new java.awt.Color(0, 102, 204));
+        jButton5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jButton5.setText("Consultar");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -256,11 +422,18 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 66, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +446,11 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,12 +469,22 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Precher_Tabela();
-       // TODO add your handling code here:
+        CadastrarContactosDEEmergecia();
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+new PainelCadastroDespesas().setVisible(true);
+this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void cbxapartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxapartamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxapartamentoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+ precherTabela();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,10 +512,12 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelaEmergencia;
     private javax.swing.JComboBox<String> cbxapartamento;
     private javax.swing.JComboBox<String> cbxparentesco;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -343,7 +532,6 @@ public class PainelDeContactosDeEmergencia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtNomeContacto;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtalternativo;

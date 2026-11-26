@@ -1,25 +1,39 @@
 package model;
 
-
 import java.io.Serializable;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author yurankali
  */
-public class Emergencia  implements Serializable {
+public class Emergencia implements Serializable {
 
-    public String getNomeMorador() {
-        return nomeMorador;
+    private static final long seriaVescionuID = 1l;
+
+    private int id;
+
+    private String apartamento;
+    private String nomeContacto;
+    private String telefone;
+    private String parentesco;
+    private String contactoAlternativo;
+
+    public Emergencia(String apartamento, String nomeContacto, String telefone, String parentesco, String contactoAlternativo, int id) {
+
+        this.apartamento = apartamento;
+        this.nomeContacto = nomeContacto;
+        this.telefone = telefone;
+        this.parentesco = parentesco;
+        this.contactoAlternativo = contactoAlternativo;
+        this.id = id;
     }
 
-    public void setNomeMorador(String nomeMorador) {
-        this.nomeMorador = nomeMorador;
+    public Emergencia() {
+
     }
 
     public String getApartamento() {
@@ -69,22 +83,5 @@ public class Emergencia  implements Serializable {
     public void setContactoAlternativo(String contactoAlternativo) {
         this.contactoAlternativo = contactoAlternativo;
     }
- private static final long seriaVescionuID = 1l;
 
-    public Emergencia(String nomeMorador, String apartamento, String nomeContacto, String telefone, String parentesco, String contactoAlternativo, int id) {
-        this.nomeMorador = nomeMorador;
-        this.apartamento = apartamento;
-        this.nomeContacto = nomeContacto;
-        this.telefone = telefone;
-        this.parentesco = parentesco;
-        this.contactoAlternativo = contactoAlternativo;
-        this.id=id;
-    }
-    private int id;
-    private String nomeMorador;
-    private String apartamento;
-    private String nomeContacto;
-    private String telefone;
-    private String parentesco;
-    private String contactoAlternativo;
 }
