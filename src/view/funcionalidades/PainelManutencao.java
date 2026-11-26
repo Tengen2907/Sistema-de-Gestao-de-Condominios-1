@@ -56,7 +56,6 @@ public class PainelManutencao extends javax.swing.JFrame {
                 for (int i = 0; i < listaManutencao.size(); i++) {
                     Manutencao manutencao = (Manutencao) listaManutencao.get(i);
                     if (manutencao.getCategoria().equals(id)
-                            && (apartamento1.getId() + "").equals(morador.getApartamento().trim())
                             && (apartamento1.getId() + "").equals(manutencao.getApartametoId().trim())) {
 
                         linha[0] = manutencao.getId();
