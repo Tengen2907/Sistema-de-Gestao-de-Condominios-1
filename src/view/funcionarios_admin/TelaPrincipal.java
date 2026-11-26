@@ -6,7 +6,6 @@ package view.funcionarios_admin;
 
 import view.consulta.telaCunsultaMoradores;
 import view.consulta.telaCunsultaPagamentos;
-import view.funcionalidades.PainelAvisos;
 import view.funcionalidades.PainelNotificacoes;
 import view.funcionalidades.PainelRelatorios;
 import view.funcionalidades.PainelManutencao;
@@ -18,6 +17,7 @@ import model.Pagamento;
 import view.cadastro.PainelCadastroDespesas;
 import view.TelaLogin;
 import view.processamento.telaDePagamentosMorador;
+import view.processamento.telaDePagementoFuncionarios;
 
 /**
  *
@@ -163,7 +163,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(0, 102, 204));
         jButton5.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jButton5.setText("Avisos");
+        jButton5.setText("Salarios");
         jButton5.addActionListener(this::jButton5ActionPerformed);
 
         jButton6.setBackground(new java.awt.Color(0, 102, 204));
@@ -570,7 +570,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        new PainelAvisos().setVisible(true);
+        new telaDePagementoFuncionarios().setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButton5ActionPerformed

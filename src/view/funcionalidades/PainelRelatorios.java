@@ -27,7 +27,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
         initComponents();
         receitas();
         total_despesas();
-        saidas();
+        saldo();
     }
 
     public void receitas() {
@@ -62,11 +62,21 @@ public class PainelRelatorios extends javax.swing.JFrame {
         }
     }
     
-    public void saidas(){
-        try {
-            double total= telaDePagementoFuncionarios.total_salarios_pagos();
-            txtTotalSaidas.setText(total + " MZN");
-        } catch (Exception e) {
+    public void saldo(){
+        try{
+        double receitas= telaDePagementoFuncionarios.total_receita();
+        double salarios= telaDePagementoFuncionarios.total_salarios_pagos();
+        
+        double despesas=0;
+        Vector listarDespesas = PainelCadastroDespesas.ler_texto();
+        for(int i=0; i< listarDespesas.size(); i++){
+            Despesa d= (Despesa) listarDespesas.get(i);
+            despesas +=d.getValor();
+        }
+        
+        double saldo= receitas - despesas-salarios;
+        txtSaldo.setText(saldo +" MZN");
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -91,7 +101,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
         txtTotalReceitas = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        txtTotalSaidas = new javax.swing.JLabel();
+        txtSaldo = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtTotalDespesas = new javax.swing.JLabel();
@@ -157,10 +167,10 @@ public class PainelRelatorios extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel8.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel8.setText("Saidas");
+        jLabel8.setText("Saldo");
 
-        txtTotalSaidas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        txtTotalSaidas.setText("0");
+        txtSaldo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txtSaldo.setText("0");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -169,11 +179,11 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel8)
-                .addContainerGap(719, Short.MAX_VALUE))
+                .addContainerGap(728, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(361, 361, 361)
-                    .addComponent(txtTotalSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(267, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
@@ -185,7 +195,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(txtTotalSaidas)
+                    .addComponent(txtSaldo)
                     .addContainerGap(10, Short.MAX_VALUE)))
         );
 
@@ -349,8 +359,8 @@ public class PainelRelatorios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel txtSaldo;
     private javax.swing.JLabel txtTotalDespesas;
     private javax.swing.JLabel txtTotalReceitas;
-    private javax.swing.JLabel txtTotalSaidas;
     // End of variables declaration//GEN-END:variables
 }

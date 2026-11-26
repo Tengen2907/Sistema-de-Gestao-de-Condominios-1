@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Funcionario;
 import model.Pagamento;
+import view.cadastro.PainelCadastroDespesas;
 import view.cadastro.PainelCadastroFuncionario;
 import view.funcionarios_admin.TelaPrincipal;
 
@@ -27,7 +28,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaDePagementoFuncionarios.class.getName());
     private static final String FICHEIRO = "Salarios.TxT";
     private Funcionario funcionario;
-    private Pagamento pagamento;
 
     /**
      * Creates new form telaDePagementoFuncionarios
@@ -143,9 +143,23 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             return;
         }
         
-        double disponivel=total_receita() - total_salarios_pagos();
+        double receita= total_receita();
+        double pago= total_salarios_pagos();
+        double despesas=0;
+        Vector  listarDespesas= PainelCadastroDespesas.ler_texto();
+        for(int i=0; i <listarDespesas.size();i++){
+            despesas += ((model.Despesa) listarDespesas.get(i)).getValor();
+        }
+        
+        double disponivel = receita - despesas - pago;
+        
+        if(salario <= 0){
+            JOptionPane.showMessageDialog(null, "Salario Invalido: " +salario+ " MZN. ");
+            return;
+        }
+        
         if(salario > disponivel){
-            JOptionPane.showMessageDialog(null, "Receita Insuficiente! Disponivel: " +disponivel+ " MZN");
+            JOptionPane.showMessageDialog(null, "Saldo insuficiente! Receita: " +receita+" MZN");
             return;
         }
         
@@ -235,7 +249,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
         tblHistoricoDePagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tblHistoricoDePagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        tblHistoricoDePagamentos.setForeground(java.awt.Color.black);
         tblHistoricoDePagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -256,14 +270,18 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblHistoricoDePagamentos);
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.black);
         jLabel1.setText("Historico de Pagamentos");
 
         jPanel2.setBackground(java.awt.Color.white);
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.black)); // NOI18N
+        jPanel2.setForeground(java.awt.Color.black);
 
-        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("Metodos de Pagamento");
 
+        cbxMetodosDePagamento.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,12 +289,15 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("Salario");
 
-        jLabel5.setForeground(java.awt.Color.white);
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Cargo");
 
+        txtCargo.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txtCargo.setText(" ");
 
         jButton3.setBackground(new java.awt.Color(0, 95, 132));
@@ -290,8 +311,13 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setForeground(java.awt.Color.white);
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Nome");
+
+        lblNomeDoFuncionario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+
+        txtSalario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,9 +341,9 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                                     .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                                 .addComponent(lblNomeDoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -335,7 +361,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)

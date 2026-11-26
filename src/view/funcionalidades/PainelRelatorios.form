@@ -246,12 +246,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="719" max="32767" attributes="0"/>
+                          <EmptySpace pref="728" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
-                              <Component id="txtTotalSaidas" min="-2" pref="175" max="-2" attributes="0"/>
+                              <Component id="txtSaldo" min="-2" pref="175" max="-2" attributes="0"/>
                               <EmptySpace pref="267" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -267,7 +267,7 @@
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="txtTotalSaidas" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtSaldo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -280,10 +280,10 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Saidas"/>
+                    <Property name="text" type="java.lang.String" value="Saldo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtTotalSaidas">
+                <Component class="javax.swing.JLabel" name="txtSaldo">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="14" style="0"/>

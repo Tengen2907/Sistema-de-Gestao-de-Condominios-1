@@ -10,6 +10,7 @@ import view.funcionarios_admin.TelaPrincipal;
 import static view.processamento.telaDePagementoFuncionarios.ler_salarios;
 import model.Funcionario;
 import model.Pagamento;
+import view.cadastro.PainelCadastroFuncionario;
 import view.processamento.telaDePagementoFuncionarios;
 
 /**
@@ -25,27 +26,38 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
      */
     public telaCunsultaPagamentos() {
         initComponents();
+
     }
 
     public void precher_Tabela() {
 
         try {
             DefaultTableModel modelo = (DefaultTableModel) TabelaPagamentos.getModel();
-            Object[] linha = new Object[6];
-            String metodo = cbxMetodoDePagamento.getSelectedItem() + "";
+            Object[] linha = new Object[5];
+            String metodo = cbxMetodosDePagamento.getSelectedItem() + "";
+            remover_linha();
 
             Vector listaFuncionarios = telaDePagementoFuncionarios.ler_salarios();
+            Vector cadastro = PainelCadastroFuncionario.ler_texto();
             for (int j = 0; j < listaFuncionarios.size(); j++) {
                 Pagamento pagamento;
                 pagamento = (Pagamento) listaFuncionarios.get(j);
-                if ((pagamento.getMetodoPagamento() + "").equals(pagamento.getId())) {
-                    linha[1] = pagamento.getReferencia();
-                    linha[2] = pagamento.getId();
-                    //linha[3]
-                    linha[4] = pagamento.getSalario();
-                    linha[5] = pagamento.getMetodoPagamento();
-                    modelo.addRow(linha);
+                if ((pagamento.getMetodoPagamento() + "").equals(metodo)) {
+                    String cargo = "";
+                    for (int y = 0; y < cadastro.size(); y++) {
+                        Funcionario f = (Funcionario) cadastro.get(y);
+                        if (String.valueOf(f.getId()).equals(pagamento.getId().trim())) {
+                            cargo = f.getCargo();
+                            break;
+                        }
+                    }
 
+                    linha[0] = pagamento.getReferencia();
+                    linha[1] = pagamento.getId();
+                    linha[2] = cargo;
+                    linha[3] = pagamento.getValor();
+                    linha[4] = pagamento.getMetodoPagamento();
+                    modelo.addRow(linha);
                 }
             }
         } catch (Exception e) {
@@ -75,10 +87,10 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        cbxMetodoDePagamento = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        cbxMetodosDePagamento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,8 +146,6 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        cbxMetodoDePagamento.setBackground(new java.awt.Color(0, 102, 204));
-
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel5.setText("Listar por:");
 
@@ -160,6 +170,11 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        cbxMetodosDePagamento.setBackground(new java.awt.Color(0, 102, 204));
+        cbxMetodosDePagamento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
+        cbxMetodosDePagamento.addActionListener(this::cbxMetodosDePagamentoActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,8 +187,8 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(26, 26, 26)
-                                .addComponent(cbxMetodoDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxMetodosDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(166, Short.MAX_VALUE))
@@ -185,7 +200,7 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxMetodoDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxMetodosDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -208,7 +223,7 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //precherTabela();        // TODO add your handling code here:
+        precher_Tabela();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -217,6 +232,10 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void cbxMetodosDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMetodosDePagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxMetodosDePagamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +264,7 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaPagamentos;
-    private javax.swing.JComboBox<String> cbxMetodoDePagamento;
+    private javax.swing.JComboBox<String> cbxMetodosDePagamento;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
