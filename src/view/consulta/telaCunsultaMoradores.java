@@ -44,16 +44,16 @@ public class telaCunsultaMoradores extends javax.swing.JFrame {
                     Cadastro cadastro;
                     cadastro = (Cadastro) listarMoradores.get(i);
                     if (cadastro.getNomeCompleto().toLowerCase().startsWith(nome.trim().toLowerCase())
-        && (apartamento1.getId() + "").equals(cadastro.getApartamento())) {
+                            && (apartamento1.getId() + "").equals(cadastro.getApartamento())) {
                         linha[0] = cadastro.getId();
                         linha[1] = cadastro.getNomeCompleto();
                         linha[2] = textoApartamento;
                         linha[3] = cadastro.getTelefone();
                         linha[4] = cadastro.getEstadoCivil();
                         model.addRow(linha);
-                        
+
                     }
-                    
+
                 }
             }
 
