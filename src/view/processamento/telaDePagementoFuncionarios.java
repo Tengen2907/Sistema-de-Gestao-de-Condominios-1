@@ -40,24 +40,15 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO))) {
 
             for (int i = 0; i < y.size(); i++) {
-                Funcionario f = (Funcionario) y.get(i);
-                bw.write(f.getId());
-                bw.newLine();
-                bw.write(pagamento.getReferencia());
-                bw.newLine();
-                bw.write(pagamento.getMetodoPagamento());
-                bw.newLine();
-                bw.write(f.getNomeCompleto());
-                bw.newLine();
-                bw.write(f.getCargo());
-                bw.newLine();
-                bw.write(f.getSalario() + "");
-                bw.write("----------------------------");
+                Pagamento p = (Pagamento) y.get(i);
+                bw.write(p.getId());bw.newLine();
+                bw.write(p.getReferencia());bw.newLine();
+                bw.write(p.getMetodoPagamento());bw.newLine();
+                bw.write(String.valueOf(p.getValor()));bw.newLine();
+                bw.write("-------------------------------------------------");
                 bw.newLine();
             }
             bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -70,43 +61,74 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String SalarioId;
+            String idFuncionario;
 
-            while ((SalarioId = br.readLine()) != null) {
-                Funcionario funcionario = new Funcionario();
-                Pagamento pagamento = new Pagamento();
-                pagamento.setReferencia(SalarioId);
-                funcionario.setNomeCompleto(br.readLine());
-                pagamento.setMetodoPagamento(br.readLine());
-                funcionario.setCargo(br.readLine());
-                funcionario.setSalario(Double.parseDouble(br.readLine()));
+            while ((idFuncionario = br.readLine()) != null) {
+                Pagamento p = new Pagamento();
+                p.setId(idFuncionario);
+                p.setReferencia(br.readLine());
+                p.setMetodoPagamento(br.readLine());
+                p.setValor(Double.parseDouble(br.readLine()));
+                br.readLine();
+                y.add(p);
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return y;
     }
 
-    double salario = 0;
+    public static double total_receita() {
+        Vector listarPagamentos = telaDePagamentosMorador.ler_pagamentos();
+        double total = 0;
 
+        for (int i = 0; i < listarPagamentos.size(); i++) {
+            Pagamento p = (Pagamento) listarPagamentos.get(i);
+            total += Double.parseDouble(String.valueOf(p.getValor()));
+        }
+        return total;
+    }
+
+    public static double total_salarios_pagos() {
+        Vector listarSalarios = ler_salarios();
+        double total = 0;
+
+        for (int i = 0; i < listarSalarios.size(); i++) {
+            Pagamento p = (Pagamento) listarSalarios.get(i);
+            total += Double.parseDouble(String.valueOf(p.getValor()));
+        }
+        return total;
+    }
+
+    double salario;
+    
     public void exibir_dados() {
         Vector listarFuncionarios = PainelCadastroFuncionario.ler_texto();
 
-        String id = txtID.getText().trim();
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Digite o ID no formulario!");
-        }
-        id = txtID.getText().trim();
-        for (int i = 0; i < listarFuncionarios.size(); i++) {
-            Funcionario f = (Funcionario) listarFuncionarios.get(i);
-            if (String.valueOf(f.getId()).equals(id)) {
-                funcionario = f;
-                lblNomeDoFuncionario.setText(f.getNomeCompleto());
-                txtCargo.setText(f.getCargo());
-                txtSalario.setText(salario + " MZN");
-                return;
-            }
-        }
+      String id= txtID.getText().trim();
+      
+      if(id.isEmpty()){
+          JOptionPane.showMessageDialog(null, "Digite o ID no formulario!");
+          return;
+      }
+      
+      for(int i=0; i<listarFuncionarios.size(); i++){
+          Funcionario f= (Funcionario) listarFuncionarios.get(i);
+          
+          if(String.valueOf(f.getId()).equals(id)){
+              funcionario = f;
+              salario= f.getSalario();
+              lblNomeDoFuncionario.setText(f.getNomeCompleto());
+              txtCargo.setText(f.getCargo());
+              txtSalario.setText(salario + " MZN");
+              return;
+          }
+          
+      }
+      
+      JOptionPane.showMessageDialog(null, "Funcionario nao encobtrado");
+        
     }
 
     public void pagar_salario() {
@@ -120,6 +142,13 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione o metodo de pagamento");
             return;
         }
+        
+        double disponivel=total_receita() - total_salarios_pagos();
+        if(salario > disponivel){
+            JOptionPane.showMessageDialog(null, "Receita Insuficiente! Disponivel: " +disponivel+ " MZN");
+            return;
+        }
+        
         try {
             Pagamento p = new Pagamento();
             p.setId(String.valueOf(funcionario.getId()));
@@ -141,6 +170,10 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }
 
     public void historico_salarios() {
+        if(funcionario == null){
+            JOptionPane.showMessageDialog(null, "Procure um funcionario");
+            return;
+        }
         DefaultTableModel modelo = (DefaultTableModel) tblHistoricoDePagamentos.getModel();
         modelo.setRowCount(0);
 
@@ -162,7 +195,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         lblNomeDoFuncionario.setText("");
         txtCargo.setText("");
         txtSalario.setText("");
-        cbxMetodosDePagamento.getSelectedIndex();
+        cbxMetodosDePagamento.setSelectedIndex(0);
     }
 
     /**
@@ -199,9 +232,8 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(java.awt.Color.white);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        tblHistoricoDePagamentos.setBackground(java.awt.Color.white);
         tblHistoricoDePagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblHistoricoDePagamentos.setForeground(new java.awt.Color(255, 255, 255));
         tblHistoricoDePagamentos.setModel(new javax.swing.table.DefaultTableModel(
@@ -224,19 +256,14 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblHistoricoDePagamentos);
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Historico de Pagamentos");
 
         jPanel2.setBackground(java.awt.Color.white);
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
-        jPanel2.setForeground(java.awt.Color.black);
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.black);
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Metodos de Pagamento");
 
-        cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
-        cbxMetodosDePagamento.setForeground(new java.awt.Color(255, 255, 255));
         cbxMetodosDePagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M-pesa", "Emola", "BCI", "BIM" }));
         cbxMetodosDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,17 +271,12 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.black);
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Salario");
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Cargo");
 
-        txtCargo.setBackground(java.awt.Color.white);
-        txtCargo.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        txtCargo.setForeground(java.awt.Color.black);
         txtCargo.setText(" ");
 
         jButton3.setBackground(new java.awt.Color(0, 95, 132));
@@ -270,12 +292,6 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Nome");
-
-        lblNomeDoFuncionario.setBackground(java.awt.Color.white);
-        lblNomeDoFuncionario.setForeground(java.awt.Color.black);
-
-        txtSalario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        txtSalario.setForeground(java.awt.Color.black);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -299,9 +315,9 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                                     .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblNomeDoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -319,7 +335,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -357,16 +373,11 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(java.awt.Color.gray);
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procurrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.black)); // NOI18N
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
+        jLabel4.setBackground(java.awt.Color.black);
         jLabel4.setText("ID");
-
-        txtID.setBackground(new java.awt.Color(204, 204, 204));
-        txtID.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        txtID.setForeground(java.awt.Color.black);
 
         jButton5.setBackground(new java.awt.Color(0, 95, 132));
         jButton5.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
@@ -492,6 +503,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        limpar_campos();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
