@@ -25,20 +25,8 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
      */
     public telaCunsultaDespesas() {
         initComponents();
-        adicionar();
     }
 
-    public void adicionar() {
-        cbxCunsultar.removeAllItems();
-        Vector listarApartamentos = PainelCadastrarApartamentos.ler_texto();
-        Apartamento apartamento1;
-
-        for (int i = 0; i < listarApartamentos.size(); i++) {
-            apartamento1 = (Apartamento) listarApartamentos.get(i);
-            cbxCunsultar.addItem(apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar());
-        }
-
-    }
 
     public void precherTabela() {
         remover_linha();
@@ -47,19 +35,13 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
             Object[] linha = new Object[6];
 
             String categoria = cbxListarDespesas1.getSelectedItem() + "";
-            String Despensas = cbxCunsultar.getSelectedItem() + "";
             
             Vector x = PainelCadastroDespesas.ler_texto();
             Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
             
             for (int j = 0; j < listaApartamentos.size(); j++) {
                 Apartamento apartamento1 = (Apartamento) listaApartamentos.get(j);
-                //String textoApartamento = apartamento1.getId() + "-Bloco-" + apartamento1.getBloco() + "-Andar-" + apartamento1.getAndar();
                 
-//                if (categoria.equals(textoApartamento)) {
-//                    for (int i = 0; i < listaApartamentos.size(); i++) {
-//                        Cadastro cadastro = (Cadastro) listaApartamentos.get(i);
-//                        if ((apartamento1.getId() + "").equals(cadastro.getApartamento())) {
                             Despesa despesa;
 
                             despesa = (Despesa) x.get(j);
@@ -72,10 +54,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                                 linha[5] = apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar();
                                 model.addRow(linha);
                             }
-                        //}
-
-                    //}
-                //}
+                        
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,9 +84,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         cbxListarDespesas1 = new javax.swing.JComboBox<>();
-        cbxCunsultar = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -157,23 +134,15 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Listar por Bloco:");
-
         cbxListarDespesas1.setBackground(new java.awt.Color(0, 102, 204));
         cbxListarDespesas1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Categoria", "Água", "Energia", " Salário", "Limpeza", " Segurança", " Manutenção", " Reparações", "Material de escritório", " Impostos e taxas", "Outras" }));
 
-        cbxCunsultar.setBackground(new java.awt.Color(0, 102, 204));
-
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Listar por:");
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Consultar despesas");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -197,15 +166,9 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(521, 521, 521)
-                .addComponent(jLabel4)
-                .addGap(28, 28, 28)
-                .addComponent(cbxCunsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 395, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1314, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel5)
@@ -223,13 +186,11 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(106, 106, 106)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxListarDespesas1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxCunsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,12 +256,10 @@ this.dispose();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaDespesa;
-    private javax.swing.JComboBox<String> cbxCunsultar;
     private javax.swing.JComboBox<String> cbxListarDespesas1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;

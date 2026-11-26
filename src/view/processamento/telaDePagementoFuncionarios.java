@@ -198,10 +198,10 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(10, 25, 34));
+        jPanel1.setBackground(java.awt.Color.white);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Meus Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
 
-        tblHistoricoDePagamentos.setBackground(new java.awt.Color(10, 25, 34));
+        tblHistoricoDePagamentos.setBackground(java.awt.Color.white);
         tblHistoricoDePagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblHistoricoDePagamentos.setForeground(new java.awt.Color(255, 255, 255));
         tblHistoricoDePagamentos.setModel(new javax.swing.table.DefaultTableModel(
@@ -227,10 +227,12 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Historico de Pagamentos");
 
-        jPanel2.setBackground(new java.awt.Color(10, 25, 34));
+        jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pagamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
+        jPanel2.setForeground(java.awt.Color.black);
 
-        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("Metodos de Pagamento");
 
         cbxMetodosDePagamento.setBackground(new java.awt.Color(10, 25, 34));
@@ -242,13 +244,17 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("Salario");
 
-        jLabel5.setForeground(java.awt.Color.white);
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Cargo");
 
-        txtCargo.setForeground(new java.awt.Color(255, 255, 255));
+        txtCargo.setBackground(java.awt.Color.white);
+        txtCargo.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        txtCargo.setForeground(java.awt.Color.black);
         txtCargo.setText(" ");
 
         jButton3.setBackground(new java.awt.Color(0, 95, 132));
@@ -265,7 +271,11 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Nome");
 
-        lblNomeDoFuncionario.setForeground(java.awt.Color.white);
+        lblNomeDoFuncionario.setBackground(java.awt.Color.white);
+        lblNomeDoFuncionario.setForeground(java.awt.Color.black);
+
+        txtSalario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        txtSalario.setForeground(java.awt.Color.black);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -289,9 +299,9 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                                     .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                                 .addComponent(lblNomeDoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -309,7 +319,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -347,14 +357,16 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(10, 25, 34));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procurrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.white)); // NOI18N
+        jPanel3.setBackground(java.awt.Color.gray);
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Procurrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cantarell", 1, 18), java.awt.Color.black)); // NOI18N
 
-        jLabel4.setForeground(java.awt.Color.white);
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("ID");
 
-        txtID.setBackground(new java.awt.Color(10, 25, 34));
-        txtID.setForeground(java.awt.Color.white);
+        txtID.setBackground(new java.awt.Color(204, 204, 204));
+        txtID.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        txtID.setForeground(java.awt.Color.black);
 
         jButton5.setBackground(new java.awt.Color(0, 95, 132));
         jButton5.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
