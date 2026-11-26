@@ -141,7 +141,6 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
             cbxMetodosDePagamento.setSelectedIndex(0);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao registar o pagamento");
             e.printStackTrace();
         }
 

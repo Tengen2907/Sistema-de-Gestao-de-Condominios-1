@@ -37,7 +37,7 @@ import view.funcionarios_admin.TelaPrincipal;
 
      
 
-        public void guardar_texto(Vector y) {
+        public static void guardar_texto(Vector y) {
             try {
                 File file = new File(FICHEIRO);
                 FileWriter fw = new FileWriter(file);

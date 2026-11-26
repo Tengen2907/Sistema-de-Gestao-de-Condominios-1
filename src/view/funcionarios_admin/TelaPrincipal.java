@@ -6,7 +6,6 @@ package view.funcionarios_admin;
 
 import view.consulta.telaCunsultaMoradores;
 import view.consulta.telaCunsultaPagamentos;
-import view.funcionalidades.PainelNotificacoes;
 import view.funcionalidades.PainelRelatorios;
 import view.funcionalidades.PainelManutencao;
 import view.cadastro.PainelCadastroFuncionario;
@@ -16,6 +15,7 @@ import java.util.Vector;
 import model.Pagamento;
 import view.cadastro.PainelCadastroDespesas;
 import view.TelaLogin;
+import view.processamento.telaAumentoSalario;
 import view.processamento.telaDePagamentosMorador;
 import view.processamento.telaDePagementoFuncionarios;
 
@@ -188,7 +188,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton10.setBackground(new java.awt.Color(0, 102, 204));
         jButton10.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jButton10.setText("Notificaes");
+        jButton10.setText("Aumento");
         jButton10.addActionListener(this::jButton10ActionPerformed);
 
         jButton11.setBackground(new java.awt.Color(0, 102, 204));
@@ -575,13 +575,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        new PainelNotificacoes().setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         new PainelRelatorios().setVisible(true);
@@ -595,6 +588,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        new telaAumentoSalario().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
