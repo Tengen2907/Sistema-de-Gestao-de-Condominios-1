@@ -34,6 +34,7 @@ public class telaDeManutencaoMoradores extends javax.swing.JFrame {
      */
     public telaDeManutencaoMoradores() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public telaDeManutencaoMoradores(Cadastro morador) {

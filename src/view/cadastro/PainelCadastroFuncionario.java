@@ -34,6 +34,7 @@ import view.funcionarios_admin.TelaPrincipal;
         public PainelCadastroFuncionario() {
             initComponents();
                 x = ler_texto();
+                setExtendedState(MAXIMIZED_BOTH);
         }
 
      

@@ -37,6 +37,7 @@ public class telaDePagamentosMorador extends javax.swing.JFrame {
     public telaDePagamentosMorador() {
         initComponents();
         exibir_dados();
+        setExtendedState(MAXIMIZED_BOTH);
     }
     double valorMensalidade = 0;
 

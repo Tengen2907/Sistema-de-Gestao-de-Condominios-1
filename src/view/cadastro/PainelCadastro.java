@@ -34,6 +34,7 @@ public class PainelCadastro extends javax.swing.JFrame {
         initComponents();
         x = ler_texto();
         adicionar();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void guardar_texto(Vector y) throws IOException {

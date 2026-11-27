@@ -26,6 +26,7 @@ public class telaPerfilDoMorador extends javax.swing.JFrame {
      */
     public telaPerfilDoMorador() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public telaPerfilDoMorador(Cadastro morador){

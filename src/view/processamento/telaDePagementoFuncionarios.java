@@ -34,6 +34,7 @@ public class telaDePagementoFuncionarios extends javax.swing.JFrame {
      */
     public telaDePagementoFuncionarios() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void guardar_salarios(Vector y) throws IOException {

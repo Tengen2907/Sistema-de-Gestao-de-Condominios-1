@@ -25,6 +25,7 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
      */
     public telaCunsultaDespesas() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
 
@@ -37,10 +38,9 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
             String categoria = cbxListarDespesas1.getSelectedItem() + "";
             
             Vector x = PainelCadastroDespesas.ler_texto();
-            Vector listaApartamentos = PainelCadastrarApartamentos.ler_texto();
+            Vector listarApartamento= PainelCadastrarApartamentos.ler_texto();
             
-            for (int j = 0; j < listaApartamentos.size(); j++) {
-                Apartamento apartamento1 = (Apartamento) listaApartamentos.get(j);
+            for (int j = 0; j < x.size(); j++) {
                 
                             Despesa despesa;
 
@@ -51,7 +51,14 @@ public class telaCunsultaDespesas extends javax.swing.JFrame {
                                 linha[2] = despesa.getValor();
                                 linha[3] = despesa.getBenificiario();
                                 linha[4] = despesa.getResponsavel();
-                                linha[5] = apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar();
+                                
+                                if(j < listarApartamento.size()){
+                                    Apartamento apartamento1= (Apartamento) listarApartamento.get(j);
+                                    linha[5] = apartamento1.getId()+"-Bloco-"+apartamento1.getBloco()+"-Andar-"+apartamento1.getAndar();
+                                }else{
+                                    linha[5]= "-";
+                                }
+                                
                                 model.addRow(linha);
                             }
                         

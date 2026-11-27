@@ -23,6 +23,7 @@ public class PainelFuncionarios extends javax.swing.JFrame {
      */
     public PainelFuncionarios() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
     
     public void Funcionario() {

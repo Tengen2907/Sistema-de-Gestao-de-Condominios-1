@@ -24,6 +24,7 @@ public class telaAumentoSalario extends javax.swing.JFrame {
      */
     public telaAumentoSalario() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void Cunsulta_Funcionarios() {

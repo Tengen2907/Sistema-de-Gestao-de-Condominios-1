@@ -23,6 +23,7 @@ public class PainelApartamentos extends javax.swing.JFrame {
     public PainelApartamentos() {
         initComponents();
         adicionar();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void adicionar() {

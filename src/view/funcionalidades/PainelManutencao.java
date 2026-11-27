@@ -29,6 +29,7 @@ public class PainelManutencao extends javax.swing.JFrame {
 
     public PainelManutencao() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public PainelManutencao(Cadastro morador) {

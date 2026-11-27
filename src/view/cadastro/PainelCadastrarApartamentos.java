@@ -31,6 +31,7 @@ public class PainelCadastrarApartamentos extends javax.swing.JFrame {
     public PainelCadastrarApartamentos() {
         initComponents();
         x = ler_texto();
+        setExtendedState(MAXIMIZED_BOTH);
 
     }
 

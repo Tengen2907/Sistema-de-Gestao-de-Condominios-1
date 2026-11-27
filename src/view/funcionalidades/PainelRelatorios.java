@@ -28,6 +28,7 @@ public class PainelRelatorios extends javax.swing.JFrame {
         receitas();
         total_despesas();
         saldo();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void receitas() {

@@ -25,6 +25,7 @@ public class telaCunsultaMoradores extends javax.swing.JFrame {
      */
     public telaCunsultaMoradores() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
 
     }
 

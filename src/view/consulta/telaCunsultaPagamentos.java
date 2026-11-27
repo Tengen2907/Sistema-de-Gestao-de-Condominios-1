@@ -26,6 +26,7 @@ public class telaCunsultaPagamentos extends javax.swing.JFrame {
      */
     public telaCunsultaPagamentos() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
 
     }
 

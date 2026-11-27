@@ -26,6 +26,7 @@ public class PainelVisaoMorador extends javax.swing.JFrame {
      */
     public PainelVisaoMorador() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
     
     private Cadastro morador;

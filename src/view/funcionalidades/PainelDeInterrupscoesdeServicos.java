@@ -19,6 +19,7 @@ public class PainelDeInterrupscoesdeServicos extends javax.swing.JFrame {
      */
     public PainelDeInterrupscoesdeServicos() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
