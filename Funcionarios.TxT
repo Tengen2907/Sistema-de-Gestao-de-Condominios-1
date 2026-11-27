@@ -6,7 +6,7 @@ admin111
 123456
 2003
 -Supervisor de Condomínio
-12000.0
+100.0
 --------------------
 SR Yuran
 100076hue
